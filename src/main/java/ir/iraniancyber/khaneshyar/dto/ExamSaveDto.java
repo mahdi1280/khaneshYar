@@ -2,6 +2,8 @@ package ir.iraniancyber.khaneshyar.dto;
 
 import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.ExamLevel;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
@@ -17,14 +19,17 @@ public class ExamSaveDto implements Serializable {
         this.level = level;
     }
 
+    @NotEmpty(message = "{name.is.null}")
     public String getName() {
         return name;
     }
 
+    @NotEmpty(message = "{description.is.null}")
     public String getDescription() {
         return description;
     }
 
+    @NotNull(message = "{level.is.null}")
     public Integer getLevel() {
         return level;
     }

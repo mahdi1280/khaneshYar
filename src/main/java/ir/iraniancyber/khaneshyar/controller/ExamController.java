@@ -8,6 +8,7 @@ import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.ExamLevel;
 import ir.iraniancyber.khaneshyar.service.ExamLevelService;
 import ir.iraniancyber.khaneshyar.service.ExamService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class ExamController {
     }
 
     @PostMapping
-    public ResponseEntity<SaveResponseDto> saveResponseDtoResponseEntity(@RequestBody ExamSaveDto examSaveDto) {
+    public ResponseEntity<SaveResponseDto> saveResponseDtoResponseEntity(@RequestBody @Valid ExamSaveDto examSaveDto) {
         ExamLevel examLevel = examLevelService.findById(examSaveDto.getLevel())
                 .orElseThrow(() -> new RuleException("exam.level.not.found"));
         Exam exam = examSaveDto.convertToExam(examLevel);
@@ -43,7 +44,7 @@ public class ExamController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody ExamSaveDto examSaveDto) {
+    public void update(@PathVariable int id, @RequestBody @Valid ExamSaveDto examSaveDto) {
         ExamLevel examLevel = examLevelService.findById(examSaveDto.getLevel())
                 .orElseThrow(() -> new RuleException("exam.level.not.found"));
         Exam exam = examService.findById(id)
