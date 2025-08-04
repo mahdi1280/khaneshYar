@@ -2,6 +2,7 @@ package ir.iraniancyber.khaneshyar.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class UserExamHint extends BaseEntity {
@@ -9,6 +10,7 @@ public class UserExamHint extends BaseEntity {
     private UserExam userExam;
     private Hint hint;
     private Question question;
+    private Option option;
 
     @ManyToOne
     public UserExam getUserExam() {
@@ -35,5 +37,14 @@ public class UserExamHint extends BaseEntity {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    @ManyToOne
+    public Option getOption() {
+        return option;
+    }
+
+    public void setOption(Option option) {
+        this.option = option;
     }
 }
