@@ -15,6 +15,7 @@ public class BaseEntity {
     private int id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private LocalDateTime disableDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,5 +43,14 @@ public class BaseEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public LocalDateTime getDisableDate() {
+        return disableDate;
+    }
+
+    public BaseEntity setDisableDate(LocalDateTime disableDate) {
+        this.disableDate = disableDate;
+        return this;
     }
 }

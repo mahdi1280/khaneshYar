@@ -1,12 +1,13 @@
 package ir.iraniancyber.khaneshyar.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Exam extends BaseEntity {
 
     private String name;
-    private int level;
+    private Level level;
     private String description;
 
     public String getName() {
@@ -17,12 +18,14 @@ public class Exam extends BaseEntity {
         this.name = name;
     }
 
-    public int getLevel() {
+    @ManyToOne
+    public Level getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public Exam setLevel(Level level) {
         this.level = level;
+        return this;
     }
 
     public String getDescription() {
