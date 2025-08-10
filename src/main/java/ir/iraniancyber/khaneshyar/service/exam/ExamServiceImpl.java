@@ -7,6 +7,7 @@ import ir.iraniancyber.khaneshyar.repository.ExamRepository;
 import ir.iraniancyber.khaneshyar.service.level.LevelService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,5 +29,13 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public List<Exam> findAll() {
         return examRepository.findAllByDisableDateIsNull();
+    }
+
+    @Override
+    public void delete(int id) {
+        Exam exam = examRepository.findById(id)
+                .orElseThrow(() -> new RuleException("exam.not.found"));
+        exam.setDisableDate(LocalDateTime.now());
+        examRepository.save(exam);
     }
 }

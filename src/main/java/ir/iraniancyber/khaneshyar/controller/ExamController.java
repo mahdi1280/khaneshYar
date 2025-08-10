@@ -45,14 +45,10 @@ public class ExamController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(examDtos);
     }
-//
-//    @GetMapping
-//    //findAll
-//
-//    @PutMapping
-//    //update
-//
-//    @DeleteMapping
-//    //delete
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<SaveDto> delete(@PathVariable int id) {
+        examService.delete(id);
+        return ResponseEntity.ok(new SaveDto(id));
+    }
 }
