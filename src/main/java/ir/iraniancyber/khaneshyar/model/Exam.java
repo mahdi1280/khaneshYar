@@ -1,6 +1,8 @@
 package ir.iraniancyber.khaneshyar.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -23,9 +25,8 @@ public class Exam extends BaseEntity {
         return level;
     }
 
-    public Exam setLevel(Level level) {
+    public void setLevel(Level level) {
         this.level = level;
-        return this;
     }
 
     public String getDescription() {
