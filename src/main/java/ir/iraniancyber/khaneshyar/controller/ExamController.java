@@ -8,6 +8,7 @@ import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.Level;
 import ir.iraniancyber.khaneshyar.service.exam.ExamService;
 import ir.iraniancyber.khaneshyar.service.level.LevelService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class ExamController {
     }
 
     @PostMapping
-    public ResponseEntity<SaveDto> save(@RequestBody ExamSaveDto examSaveDto) {
+    public ResponseEntity<SaveDto> save(@Valid @RequestBody ExamSaveDto examSaveDto) {
         Level level = levelService.findByCode(examSaveDto.getLevel())
                 .orElseThrow(() ->
                         new RuleException("level.not.found"));
