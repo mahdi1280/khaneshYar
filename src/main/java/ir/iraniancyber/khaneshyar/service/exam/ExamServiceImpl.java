@@ -38,4 +38,16 @@ public class ExamServiceImpl implements ExamService {
         exam.setDisableDate(LocalDateTime.now());
         examRepository.save(exam);
     }
+
+    @Override
+    public void update(int id ,Exam updateExam) {
+        Exam exam= examRepository.findById(id)
+                 .orElseThrow(()-> new RuleException("exam.not.found"));
+         exam.setName(updateExam.getName());
+         exam.setDescription(updateExam.getDescription());
+         exam.setLevel(updateExam.getLevel());
+
+         examRepository.save(exam);
+
+    }
 }

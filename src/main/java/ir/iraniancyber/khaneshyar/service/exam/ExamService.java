@@ -11,4 +11,6 @@ public interface ExamService {
     List<Exam> findAll();
 
     void delete(int id);
+
+    void update(int id,Exam updateExam);
 }
