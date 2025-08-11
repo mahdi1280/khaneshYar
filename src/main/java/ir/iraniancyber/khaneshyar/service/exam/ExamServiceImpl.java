@@ -32,6 +32,14 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public Exam findById(int id) {
+      Exam exam=examRepository.findById(id)
+              .orElseThrow(()->new RuleException("exam.not.found"));
+
+        return exam;
+    }
+
+    @Override
     public void delete(int id) {
         Exam exam = examRepository.findById(id)
                 .orElseThrow(() -> new RuleException("exam.not.found"));
@@ -46,6 +54,7 @@ public class ExamServiceImpl implements ExamService {
          exam.setName(updateExam.getName());
          exam.setDescription(updateExam.getDescription());
          exam.setLevel(updateExam.getLevel());
+        exam.setUpdatedAt(LocalDateTime.now());
 
          examRepository.save(exam);
 
