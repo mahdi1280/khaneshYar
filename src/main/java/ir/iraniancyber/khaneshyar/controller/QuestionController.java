@@ -1,8 +1,8 @@
 package ir.iraniancyber.khaneshyar.controller;
 
-import ir.iraniancyber.khaneshyar.dto.*;
 import ir.iraniancyber.khaneshyar.dto.QuestionDto.QuestionDto;
 import ir.iraniancyber.khaneshyar.dto.QuestionDto.QuestionSaveDto;
+import ir.iraniancyber.khaneshyar.dto.SaveDto;
 import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.Question;
 import ir.iraniancyber.khaneshyar.service.exam.ExamService;
@@ -24,13 +24,15 @@ public class QuestionController {
         this.questionService = questionService;
         this.examService = examService;
     }
+
     @PostMapping
-    public ResponseEntity<SaveDto> save(@Valid @RequestBody QuestionSaveDto questionSaveDto){
-        Exam exam= examService.findById(questionSaveDto.getExam_id());
-        Question question=questionSaveDto.convertToQuestion(exam);
-        questionService.SaveQuestion(question);
+    public ResponseEntity<SaveDto> save(@Valid @RequestBody QuestionSaveDto questionSaveDto) {
+        Exam exam = examService.findById(questionSaveDto.getExamId());
+        Question question = questionSaveDto.convertToQuestion(exam);
+        questionService.saveQuestion(question);
         return ResponseEntity.ok(new SaveDto(question.getId()));
     }
+
     @GetMapping
     public ResponseEntity<List<QuestionDto>> findAll() {
         List<Question> questions = questionService.findAll();
@@ -39,17 +41,19 @@ public class QuestionController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(questionDtos);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<SaveDto> delete(@PathVariable int id) {
         questionService.delete(id);
         return ResponseEntity.ok(new SaveDto(id));
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<SaveDto> update(@PathVariable int id,@Valid @RequestBody QuestionSaveDto questionSaveDto){
-        Exam exam = examService.findById(questionSaveDto.getExam_id());
-        Question question= questionSaveDto.convertToQuestion(exam);
-        questionService.update(id,question);
-        return ResponseEntity.ok(new SaveDto(question.getId()));
 
+    @PutMapping("/{id}")
+    public ResponseEntity<SaveDto> update(@PathVariable int id
+            , @Valid @RequestBody QuestionSaveDto questionSaveDto) {
+        Exam exam = examService.findById(questionSaveDto.getExamId());
+        Question question = questionSaveDto.convertToQuestion(exam);
+        questionService.update(id, question);
+        return ResponseEntity.ok(new SaveDto(question.getId()));
     }
 }

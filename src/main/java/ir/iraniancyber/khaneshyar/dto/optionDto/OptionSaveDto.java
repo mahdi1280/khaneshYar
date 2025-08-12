@@ -1,6 +1,5 @@
 package ir.iraniancyber.khaneshyar.dto.optionDto;
 
-import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.Option;
 import ir.iraniancyber.khaneshyar.model.Question;
 import jakarta.validation.constraints.NotBlank;
@@ -16,10 +15,12 @@ public class OptionSaveDto {
     public String getTitle() {
         return title;
     }
+
     @NotNull(message = "option.save.dto.correct.null")
     public boolean isCorrect() {
         return correct;
     }
+
     @NotNull(message = "option.save.dto.questionId.null")
     public int getQuestionId() {
         return questionId;
@@ -30,8 +31,9 @@ public class OptionSaveDto {
         this.correct = correct;
         this.questionId = questionId;
     }
+
     public Option convertToOption(Question question) {
-        Option option= new Option();
+        Option option = new Option();
         option.setTitle(title);
         option.setCorrect(correct);
         option.setQuestion(question);

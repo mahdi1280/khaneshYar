@@ -33,10 +33,8 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public Exam findById(int id) {
-      Exam exam=examRepository.findById(id)
+      return examRepository.findById(id)
               .orElseThrow(()->new RuleException("exam.not.found"));
-
-        return exam;
     }
 
     @Override

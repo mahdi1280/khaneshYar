@@ -24,15 +24,14 @@ public class optionServiceImpl implements OptionService {
 
     @Override
     public List<Option> findByQuestionId(int questionId) {
-        return optionRepository.findByQuestionId(questionId);
+        return optionRepository.findByQuestionIdAndDisableDateIsNull(questionId);
     }
-
 
     @Override
     public void delete(int id) {
        Option option=optionRepository.findById(id)
                .orElseThrow(()-> new RuleException("option.not.found"));
-       option.setUpdatedAt(LocalDateTime.now());
+       option.setDisableDate(LocalDateTime.now());
        optionRepository.save(option);
     }
 
@@ -43,7 +42,6 @@ public class optionServiceImpl implements OptionService {
         oldOption.setTitle(updatedOption.getTitle());
         oldOption.setCorrect(updatedOption.isCorrect());
         oldOption.setQuestion(updatedOption.getQuestion());
-        oldOption.setUpdatedAt(LocalDateTime.now());
         optionRepository.save(oldOption);
     }
 }

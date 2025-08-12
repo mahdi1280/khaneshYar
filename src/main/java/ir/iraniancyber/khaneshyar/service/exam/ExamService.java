@@ -9,9 +9,10 @@ public interface ExamService {
     void save(Exam exam);
 
     List<Exam> findAll();
+
     Exam findById(int id);
 
     void delete(int id);
 
-    void update(int id,Exam updateExam);
+    void update(int id, Exam updateExam);
 }
