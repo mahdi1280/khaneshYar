@@ -1,19 +1,40 @@
 package ir.iraniancyber.khaneshyar.service.question;
 
 import ir.iraniancyber.khaneshyar.customeExeption.RuleException;
+import ir.iraniancyber.khaneshyar.dto.CompleteSaveDto;
+import ir.iraniancyber.khaneshyar.model.Exam;
+import ir.iraniancyber.khaneshyar.model.Hint;
+import ir.iraniancyber.khaneshyar.model.Option;
 import ir.iraniancyber.khaneshyar.model.Question;
+import ir.iraniancyber.khaneshyar.repository.ExamRepository;
+import ir.iraniancyber.khaneshyar.repository.HintRepository;
+import ir.iraniancyber.khaneshyar.repository.OptionRepository;
 import ir.iraniancyber.khaneshyar.repository.QuestionRepository;
+import ir.iraniancyber.khaneshyar.service.Hint.HintService;
+import ir.iraniancyber.khaneshyar.service.option.OptionService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
-    private final QuestionRepository questionRepository;
 
-    public QuestionServiceImpl(QuestionRepository questionRepository) {
+    private final QuestionRepository questionRepository;
+    private final OptionService optionService;
+    private final HintService hintService;
+    private final ExamRepository examRepository;
+    private final OptionRepository optionRepository;
+    private final HintRepository hintRepository;
+
+    public QuestionServiceImpl(QuestionRepository questionRepository, OptionService optionService, HintService hintService, ExamRepository examRepository, OptionRepository optionRepository, HintRepository hintRepository) {
         this.questionRepository = questionRepository;
+        this.optionService = optionService;
+        this.hintService = hintService;
+        this.examRepository = examRepository;
+        this.optionRepository = optionRepository;
+        this.hintRepository = hintRepository;
     }
 
     @Override
@@ -48,5 +69,44 @@ public class QuestionServiceImpl implements QuestionService {
     public Question findById(int id) {
         return questionRepository.findById(id)
                 .orElseThrow(() -> new RuleException("Question.not.found"));
+    }
+
+    @Override
+    public int saveCompleted(CompleteSaveDto completeSaveDto) {
+
+        Exam exam = examRepository.findById(completeSaveDto.getExamId())
+                .orElseThrow(() -> new RuleException("Exam.not.found"));
+
+        //question
+        Question question = new Question();
+        question.setTitle(completeSaveDto.getTitle());
+        question.setExam(exam);
+        saveQuestion(question);
+
+        //option
+        List<Option> options = completeSaveDto.getOptionSaveDtos()
+                .stream().map(o -> {
+                    Option option = new Option();
+                    option.setQuestion(question);
+                    option.setCorrect(o.isCorrect());
+                    option.setTitle(o.getTitle());
+                    return option;
+                }).collect(Collectors.toList());
+
+        optionRepository.saveAll(options);
+
+        //hint
+
+        List<Hint> hints = completeSaveDto.getHintSaveDtos()
+                .stream().map(h -> {
+                    Hint hint = new Hint();
+                    hint.setQuestion(question);
+                    hint.setLevel(h.getLevel());
+                    hint.setTitle(h.getTitle());
+                    return hint;
+                }).collect(Collectors.toList());
+        hintRepository.saveAll(hints);
+
+        return question.getId();
     }
 }

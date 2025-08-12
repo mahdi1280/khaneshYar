@@ -1,5 +1,6 @@
 package ir.iraniancyber.khaneshyar.controller;
 
+import ir.iraniancyber.khaneshyar.dto.CompleteSaveDto;
 import ir.iraniancyber.khaneshyar.dto.QuestionDto.QuestionDto;
 import ir.iraniancyber.khaneshyar.dto.QuestionDto.QuestionSaveDto;
 import ir.iraniancyber.khaneshyar.dto.SaveDto;
@@ -55,5 +56,12 @@ public class QuestionController {
         Question question = questionSaveDto.convertToQuestion(exam);
         questionService.update(id, question);
         return ResponseEntity.ok(new SaveDto(question.getId()));
+    }
+
+    @PostMapping("/completeSave")
+    public ResponseEntity<SaveDto> completeSave(
+            @Valid @RequestBody CompleteSaveDto completeSaveDto) {
+        int questionId = questionService.saveCompleted(completeSaveDto);
+        return ResponseEntity.ok(new SaveDto(questionId));
     }
 }
