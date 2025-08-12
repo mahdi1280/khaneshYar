@@ -1,12 +1,11 @@
 package ir.iraniancyber.khaneshyar.service.Hint;
 
+import ir.iraniancyber.khaneshyar.customeExeption.RuleException;
 import ir.iraniancyber.khaneshyar.model.Hint;
 import ir.iraniancyber.khaneshyar.repository.HintRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class HintServiceImpl implements HintService {
@@ -23,15 +22,20 @@ public class HintServiceImpl implements HintService {
 
     @Override
     public void delete(int id) {
-        Hint hint = hintRepository.findById(id).orElseThrow();
+        Hint hint = hintRepository.findById(id)
+                .orElseThrow(() -> new RuleException("hint.not.found"));
         hint.setDisableDate(LocalDateTime.now());
         hintRepository.save(hint);
     }
 
     @Override
-    public void update(Hint hint) {
-        hint.setId(hint.getId());
+    public void update(int id, Hint hint) {
+        Hint oldHint = hintRepository.findById(id)
+                .orElseThrow(() -> new RuleException("hint.not.found"));
+
+        oldHint.setLevel(hint.getLevel());
+        oldHint.setTitle(hint.getTitle());
+
         hintRepository.save(hint);
     }
-
 }

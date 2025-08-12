@@ -51,13 +51,15 @@ public class ExamController {
         examService.delete(id);
         return ResponseEntity.ok(new SaveDto(id));
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<SaveDto> update(@PathVariable int id,@Valid @RequestBody ExamSaveDto examSaveDto){
+    public ResponseEntity<SaveDto> update(@PathVariable int id
+            , @Valid @RequestBody ExamSaveDto examSaveDto) {
         Level level = levelService.findByCode(examSaveDto.getLevel())
                 .orElseThrow(() ->
                         new RuleException("level.not.found"));
         Exam exam = examSaveDto.convertToExam(level);
-        examService.update(id,exam);
+        examService.update(id, exam);
         return ResponseEntity.ok(new SaveDto(exam.getId()));
 
     }
