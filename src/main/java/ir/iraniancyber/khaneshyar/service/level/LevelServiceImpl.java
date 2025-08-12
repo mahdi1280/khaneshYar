@@ -18,6 +18,7 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public Optional<Level> findByCode(LevelExam code) {
+
         return levelRepository.findByCode(code);
     }
 }

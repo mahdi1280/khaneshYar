@@ -1,6 +1,5 @@
-package ir.iraniancyber.khaneshyar.dto;
+package ir.iraniancyber.khaneshyar.dto.QuestionDto;
 
-import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.Question;
 
 import java.time.LocalDateTime;
