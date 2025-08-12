@@ -4,6 +4,8 @@ import ir.iraniancyber.khaneshyar.model.Hint;
 
 public interface HintService {
     void save(Hint hint);
+
     void delete(int id);
-    void update(int id,Hint hint);
+
+    void update(int id, Hint hint);
 }
