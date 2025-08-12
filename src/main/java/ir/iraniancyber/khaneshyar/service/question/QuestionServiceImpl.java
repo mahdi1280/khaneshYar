@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 @Service
-public class QuestionServiceImpl implements QuestionService{
+public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
 
     public QuestionServiceImpl(QuestionRepository questionRepository) {
@@ -16,14 +17,14 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public void SaveQuestion(Question question) {
+    public void saveQuestion(Question question) {
         questionRepository.save(question);
     }
 
     @Override
     public void update(int id, Question updatedQues) {
-        Question question=questionRepository.findById(id)
-                .orElseThrow(()-> new RuleException("Question.not.found"));
+        Question question = questionRepository.findById(id)
+                .orElseThrow(() -> new RuleException("Question.not.found"));
         question.setTitle(updatedQues.getTitle());
         question.setExam(updatedQues.getExam());
         question.setUpdatedAt(LocalDateTime.now());
@@ -32,21 +33,20 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Override
     public void delete(int id) {
-      Question question=questionRepository.findById(id)
-              .orElseThrow(()-> new RuleException("Question.not.found"));
+        Question question = questionRepository.findById(id)
+                .orElseThrow(() -> new RuleException("Question.not.found"));
         question.setDisableDate(LocalDateTime.now());
-      questionRepository.save(question);
+        questionRepository.save(question);
     }
 
     @Override
-    public List<Question> findAll()  {
+    public List<Question> findAll() {
         return questionRepository.findAllByDisableDateIsNull();
     }
 
     @Override
     public Question findById(int id) {
-        Question question=questionRepository.findById(id)
-                .orElseThrow( ()->new RuleException("Question.not.found"));
-        return question;
+        return questionRepository.findById(id)
+                .orElseThrow(() -> new RuleException("Question.not.found"));
     }
 }

@@ -1,14 +1,17 @@
 package ir.iraniancyber.khaneshyar.service.option;
 
 
-import java.util.List;
 import ir.iraniancyber.khaneshyar.model.Option;
-import ir.iraniancyber.khaneshyar.model.Question;
+
+import java.util.List;
 
 public interface OptionService {
     void Save(Option option);
+
     List<Option> findByQuestionId(int questionId);
+
     void delete(int id);
-    void update(int id,Option option);
+
+    void update(int id, Option option);
 
 }
