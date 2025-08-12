@@ -1,8 +1,8 @@
 package ir.iraniancyber.khaneshyar.controller;
 
 import ir.iraniancyber.khaneshyar.customeExeption.RuleException;
-import ir.iraniancyber.khaneshyar.dto.ExamDto;
-import ir.iraniancyber.khaneshyar.dto.ExamSaveDto;
+import ir.iraniancyber.khaneshyar.dto.ExamDto.ExamDto;
+import ir.iraniancyber.khaneshyar.dto.ExamDto.ExamSaveDto;
 import ir.iraniancyber.khaneshyar.dto.SaveDto;
 import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.Level;

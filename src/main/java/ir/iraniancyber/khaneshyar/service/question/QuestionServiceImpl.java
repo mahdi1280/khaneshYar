@@ -42,4 +42,11 @@ public class QuestionServiceImpl implements QuestionService{
     public List<Question> findAll()  {
         return questionRepository.findAllByDisableDateIsNull();
     }
+
+    @Override
+    public Question findById(int id) {
+        Question question=questionRepository.findById(id)
+                .orElseThrow( ()->new RuleException("Question.not.found"));
+        return question;
+    }
 }

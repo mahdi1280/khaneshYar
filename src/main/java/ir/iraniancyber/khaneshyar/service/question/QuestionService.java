@@ -9,4 +9,5 @@ public interface QuestionService {
     void update(int id,Question question);
     void delete(int id);
     List<Question> findAll();
+    Question findById(int id);
 }
