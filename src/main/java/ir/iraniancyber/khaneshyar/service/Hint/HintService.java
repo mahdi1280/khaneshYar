@@ -7,5 +7,5 @@ public interface HintService {
 
     void delete(int id);
 
-    void update(int id, Hint hint);
+    void update(Hint hint);
 }
