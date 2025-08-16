@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exams</title>
+    <style>
+        /* Reset some basic elements */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #333;
+            padding: 40px 20px;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 0 12px;
+            width: 100%;
+            max-width: 900px;
+            background: #ffffffdd;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 14px 20px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        th {
+            background: #5a4bcf;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 14px;
+            user-select: none;
+        }
+        tr {
+            background: #f4f5f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+            transition: background-color 0.3s ease;
+        }
+        tr:hover {
+            background: #e0e3f8;
+            cursor: pointer;
+        }
+        td {
+            color: #444;
+            font-size: 15px;
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-radius: 8px;
+        }
+        /* Buttons container adjustment */
+        td button {
+            min-width: 70px;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            color: white;
+            box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            user-select: none;
+        }
+        td button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #9b7aed;
+        }
+        td button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 14px rgb(0 0 0 / 0.18);
+            cursor: pointer;
+        }
+        /* Distinct button colors */
+        .b-d {
+            background-color: #e74c3c;
+            box-shadow: 0 4px 8px rgb(231 76 60 / 0.4);
+        }
+        .b-u {
+            background-color: #3498db;
+            box-shadow: 0 4px 8px rgb(52 152 219 / 0.4);
+        }
+        .b-q {
+            background-color: #2ecc71;
+            box-shadow: 0 4px 8px rgb(46 204 113 / 0.4);
+        }
+        /* Add Exam button styling */
+        button#add-exam {
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 900px;
+            background: #764ba2;
+            color: white;
+            border-radius: 12px;
+            border: none;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            box-shadow: 0 6px 16px rgb(118 75 162 / 0.7);
+            user-select: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button#add-exam:hover {
+            background: #5a3c95;
+            cursor: pointer;
+            transform: translateY(-2px);
+        }
+        button#add-exam:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 8px rgb(90 60 149 / 0.6);
+        }
+        /* Responsive design */
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+            td button {
+                min-width: 60px;
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+            button#add-exam {
+                font-size: 15px;
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<center>
+<button id="add-exam">Add Exam</button>
+<table id="table" aria-label="Exams Table" role="grid">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Level</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Update</th>
+        <th scope="col">Questions</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</center>
+<script>
+    var res = [
+        {id: 1, title:"math", description:"math exam", level:5},
+        {id: 2, title:"spring", description:"spring boot exam", level:3}
+    ];
+
+    function renderTable() {
+        var tbody = document.querySelector("#table tbody");
+        tbody.innerHTML = "";
+        for (var i = 0; i < res.length; i++) {
+            var row = document.createElement("tr");
+            row.innerHTML = `
+                    <td title="${res[i].title}">${res[i].title}</td>
+                    <td title="${res[i].description}">${res[i].description}</td>
+                    <td>${res[i].level}</td>
+                    <td><button onclick='d(${res[i].id})' class='b-d'>Delete</button></td>
+                    <td><button onclick='u(${res[i].id})' class='b-u'>Update</button></td>
+                    <td><button onclick='q(${res[i].id})' class='b-q'>Questions</button></td>
+                `;
+            tbody.appendChild(row);
+        }
+    }
+
+    // Dummy functions for buttons to avoid errors
+    function d(id) {
+        alert('Delete exam with ID: ' + id);
+    }
+    function u(id) {
+        alert('Update exam with ID: ' + id);
+    }
+    function q(id) {
+        alert('Show questions for exam with ID: ' + id);
+    }
+
+    // Initial render
+    renderTable();
+
+    // Example: Add Exam button event (this can be customized)
+    document.getElementById('add-exam').addEventListener('click', function() {
+        location.replace("/saveExam")
+    });
+</script>
+</body>
+</html>
