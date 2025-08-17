@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Exams</title>
+    <title>Questions</title>
     <style>
         /* Reset some basic elements */
         body {
@@ -16,7 +16,7 @@
             border-collapse: separate;
             border-spacing: 0 12px;
             width: 100%;
-            max-width: 900px;
+            max-width: 1400px;
             background: #ffffffdd;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             border-radius: 12px;
@@ -86,15 +86,11 @@
             background-color: #3498db;
             box-shadow: 0 4px 8px rgb(52 152 219 / 0.4);
         }
-        .b-q {
-            background-color: #2ecc71;
-            box-shadow: 0 4px 8px rgb(46 204 113 / 0.4);
-        }
-        /* Add Exam button styling */
-        button#add-exam {
+        /* Add Question button styling */
+        button#add-question {
             margin-bottom: 30px;
             width: 100%;
-            max-width: 900px;
+            max-width: 1400px;
             background: #764ba2;
             color: white;
             border-radius: 12px;
@@ -107,12 +103,12 @@
             user-select: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        button#add-exam:hover {
+        button#add-question:hover {
             background: #5a3c95;
             cursor: pointer;
             transform: translateY(-2px);
         }
-        button#add-exam:active {
+        button#add-question:active {
             transform: translateY(0);
             box-shadow: 0 3px 8px rgb(90 60 149 / 0.6);
         }
@@ -127,7 +123,7 @@
                 padding: 6px 8px;
                 font-size: 12px;
             }
-            button#add-exam {
+            button#add-question {
                 font-size: 15px;
                 padding: 14px;
             }
@@ -136,16 +132,22 @@
 </head>
 <body>
 <center>
-<button id="add-exam">Add Exam</button>
-<table id="table" aria-label="Exams Table" role="grid">
+<button id="add-question">Add question</button>
+<table id="table" aria-label="questions Table" role="grid">
     <thead>
     <tr>
         <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">Level</th>
+        <th scope="col">o1</th>
+        <th scope="col">o2</th>
+        <th scope="col">o3</th>
+        <th scope="col">o4</th>
+        <th scope="col">carrot</th>
+        <th scope="col">h1</th>
+        <th scope="col">h2</th>
+        <th scope="col">h3</th>
+        <th scope="col">h4</th>
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
-        <th scope="col">Questions</th>
     </tr>
     </thead>
     <tbody>
@@ -154,8 +156,8 @@
 </center>
 <script>
     var res = [
-        {id: 1, title:"math", description:"math exam", level:5},
-        {id: 2, title:"spring", description:"spring boot exam", level:3}
+        {id: 1, title:"2+2=",o1:3,o2:4,o3:5,o4:6,carrot:2,h1:"No",h2:"6 is false.",h3:"4 or 5",h4:"4 is carrot"},
+        {id: 2, title:"7*8=",o1:56,o2:74,o3:51,o4:62,carrot:1,h1:"No",h2:"62 is false.",h3:"51 or 56",h4:"56 is carrot"}
     ];
 
     function renderTable() {
@@ -165,11 +167,17 @@
             var row = document.createElement("tr");
             row.innerHTML = `
                     <td title="${res[i].title}">${res[i].title}</td>
-                    <td title="${res[i].description}">${res[i].description}</td>
-                    <td>${res[i].level}</td>
+                    <td>${res[i].o1}</td>
+                    <td>${res[i].o2}</td>
+                    <td>${res[i].o3}</td>
+                    <td>${res[i].o4}</td>
+                    <td>${res[i].carrot}</td>
+                    <td>${res[i].h1}</td>
+                    <td>${res[i].h2}</td>
+                    <td>${res[i].h3}</td>
+                    <td>${res[i].h4}</td>
                     <td><button onclick='d(${res[i].id})' class='b-d'>Delete</button></td>
                     <td><button onclick='u(${res[i].id})' class='b-u'>Update</button></td>
-                    <td><button onclick='q(${res[i].id})' class='b-q'>Questions</button></td>
                 `;
             tbody.appendChild(row);
         }
@@ -177,21 +185,18 @@
 
     // Dummy functions for buttons to avoid errors
     function d(id) {
-        alert('Delete exam with ID: ' + id);
+        alert('Delete question with ID: ' + id);
     }
     function u(id) {
-        alert('Update exam with ID: ' + id);
-    }
-    function q(id) {
-        location.replace("/showQuestion?examId="+id);
+        alert('Update question with ID: ' + id);
     }
 
     // Initial render
     renderTable();
 
-    // Example: Add Exam button event (this can be customized)
-    document.getElementById('add-exam').addEventListener('click', function() {
-        location.replace("/saveExam")
+    // Example: Add question button event (this can be customized)
+    document.getElementById('add-question').addEventListener('click', function() {
+        location.replace("/saveQuestion")
     });
 </script>
 </body>

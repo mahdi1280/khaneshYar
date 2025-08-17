@@ -20,4 +20,14 @@ public class PageController {
     {
         return "saveExam";
     }
+    @GetMapping("/saveQuestion")
+    public String saveQuestion()
+    {
+        return "saveQuestion";
+    }
+    @GetMapping("/showQuestion")
+    public String showQuestion()
+    {
+        return "showQuestion";
+    }
 }
