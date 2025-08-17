@@ -153,20 +153,20 @@
 </table>
 </center>
 <script>
-    var res = [
-        {id: 1, title:"math", description:"math exam", level:5},
-        {id: 2, title:"spring", description:"spring boot exam", level:3}
-    ];
-
-    function renderTable() {
+    // var res = [
+    //     {id: 1, title:"math", description:"math exam", level:5},
+    //     {id: 2, title:"spring", description:"spring boot exam", level:3}
+    // ];
+    //
+    function renderTable(res) {
         var tbody = document.querySelector("#table tbody");
         tbody.innerHTML = "";
         for (var i = 0; i < res.length; i++) {
             var row = document.createElement("tr");
             row.innerHTML = `
-                    <td title="${res[i].title}">${res[i].title}</td>
+                    <td title="${res[i].name}">${res[i].name}</td>
                     <td title="${res[i].description}">${res[i].description}</td>
-                    <td>${res[i].level}</td>
+                    <td>${res[i].levelCode}</td>
                     <td><button onclick='d(${res[i].id})' class='b-d'>Delete</button></td>
                     <td><button onclick='u(${res[i].id})' class='b-u'>Update</button></td>
                     <td><button onclick='q(${res[i].id})' class='b-q'>Questions</button></td>
@@ -174,25 +174,31 @@
             tbody.appendChild(row);
         }
     }
+    //
+    // // Dummy functions for buttons to avoid errors
+    // function d(id) {
+    //     alert('Delete exam with ID: ' + id);
+    // }
+    // function u(id) {
+    //     alert('Update exam with ID: ' + id);
+    // }
+    // function q(id) {
+    //     location.replace("/showQuestion?examId="+id);
+    // }
+    //
+    // // Initial render
+    // renderTable();
+    //
+    // // Example: Add Exam button event (this can be customized)
+    // document.getElementById('add-exam').addEventListener('click', function() {
+    //     location.replace("/saveExam")
+    // });
 
-    // Dummy functions for buttons to avoid errors
-    function d(id) {
-        alert('Delete exam with ID: ' + id);
-    }
-    function u(id) {
-        alert('Update exam with ID: ' + id);
-    }
-    function q(id) {
-        location.replace("/showQuestion?examId="+id);
-    }
+    fetch("http://localhost:8083/exams")
+        .then(res => res.json())
+        .then(res => renderTable(res))
 
-    // Initial render
-    renderTable();
 
-    // Example: Add Exam button event (this can be customized)
-    document.getElementById('add-exam').addEventListener('click', function() {
-        location.replace("/saveExam")
-    });
 </script>
 </body>
 </html>

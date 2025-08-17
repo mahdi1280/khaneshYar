@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/exams")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class ExamController {
 
     private final ExamService examService;

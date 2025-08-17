@@ -9,14 +9,12 @@ import java.util.List;
 public class CompleteSaveDto {
 
     private final String title;
-    private final String description;
     private final Integer examId;
     private final List<OptionSaveDto> optionSaveDtos;
     private final List<HintSaveDto> hintSaveDtos;
 
-    public CompleteSaveDto(String title, String description, Integer examId, List<OptionSaveDto> optionSaveDtos, List<HintSaveDto> hintSaveDtos) {
+    public CompleteSaveDto(String title, Integer examId, List<OptionSaveDto> optionSaveDtos, List<HintSaveDto> hintSaveDtos) {
         this.title = title;
-        this.description = description;
         this.examId = examId;
         this.optionSaveDtos = optionSaveDtos;
         this.hintSaveDtos = hintSaveDtos;
@@ -25,11 +23,6 @@ public class CompleteSaveDto {
     @NotBlank(message = "title.null")
     public String getTitle() {
         return title;
-    }
-
-    @NotBlank(message = "description.null")
-    public String getDescription() {
-        return description;
     }
 
     public List<OptionSaveDto> getOptionSaveDtos() {

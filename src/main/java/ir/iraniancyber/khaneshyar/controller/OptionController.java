@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/options")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class OptionController {
     private final OptionService optionService;
     private final QuestionService questionService;
