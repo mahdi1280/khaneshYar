@@ -28,16 +28,41 @@
             font-style: italic;
             color: #999;
         }
+
+        @keyframes shake {
+            0% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-10deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+            75% {
+                transform: rotate(-10deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
     </style>
 </head>
 <body>
 
 <div class="container">
-
     <div class="toast-container position-fixed top-0 end-0 p-3">
         <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
              aria-atomic="true">
-            <div class="d-flex">
+            <div class="d-flex align-items-center">
+
+                <img src="cat.png"
+                     alt="avatar"
+                     class="rounded-circle me-2"
+                     style="width:30px; height:30px; animation: shake 0.6s ease-in-out 2;">
+
+
                 <div class="toast-body" id="toastMessage">
                     خطا رخ داده است
                 </div>
