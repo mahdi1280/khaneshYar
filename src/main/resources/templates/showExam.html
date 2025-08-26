@@ -136,7 +136,7 @@
 </head>
 <body>
 <center>
-<a href="/saveExam"><button id="add-exam"  Add Exam</button></a>
+<a href="/saveExam"><button id="add-exam">  Add Exam</button></a>
 <table id="table" aria-label="Exams Table" role="grid">
     <thead>
     <tr>
@@ -153,11 +153,8 @@
 </table>
 </center>
 <script>
-    // var res = [
-    //     {id: 1, title:"math", description:"math exam", level:5},
-    //     {id: 2, title:"spring", description:"spring boot exam", level:3}
-    // ];
-    //
+
+
     function renderTable(res) {
         var tbody = document.querySelector("#table tbody");
         tbody.innerHTML = "";
@@ -174,25 +171,9 @@
             tbody.appendChild(row);
         }
     }
-    //
-    // // Dummy functions for buttons to avoid errors
-    // function d(id) {
-    //     alert('Delete exam with ID: ' + id);
-    // }
-    // function u(id) {
-    //     alert('Update exam with ID: ' + id);
-    // }
-    // function q(id) {
-    //     location.replace("/showQuestion?examId="+id);
-    // }
-    //
-    // // Initial render
-    // renderTable();
-    //
-    // // Example: Add Exam button event (this can be customized)
-    // document.getElementById('add-exam').addEventListener('click', function() {
-    //     location.replace("/saveExam")
-    // });
+
+
+
 
     fetch("http://localhost:8083/exams")
         .then(res => res.json())

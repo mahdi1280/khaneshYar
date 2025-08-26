@@ -8,28 +8,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class PageController {
     @GetMapping("/")
-    public String index()
-    {
+    public String index() {
         return "index";
     }
+
     @GetMapping("/showExam")
-    public String showExam()
-    {
+    public String showExam() {
         return "showExam";
     }
+
     @GetMapping("/saveExam")
-    public String saveExam()
-    {
+    public String saveExam() {
         return "saveExam";
     }
+
     @GetMapping("/saveQuestion")
-    public String saveQuestion()
-    {
+    public String saveQuestion() {
         return "saveQuestion";
     }
+
     @GetMapping("/showQuestion")
-    public String showQuestion()
-    {
+    public String showQuestion() {
         return "showQuestion";
     }
 }

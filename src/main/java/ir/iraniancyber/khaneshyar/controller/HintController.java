@@ -1,17 +1,13 @@
 package ir.iraniancyber.khaneshyar.controller;
 
 import ir.iraniancyber.khaneshyar.dto.HintSaveDto;
-import ir.iraniancyber.khaneshyar.dto.QuestionDto.QuestionSaveDto;
 import ir.iraniancyber.khaneshyar.dto.SaveDto;
-import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.Hint;
 import ir.iraniancyber.khaneshyar.model.Question;
 import ir.iraniancyber.khaneshyar.service.Hint.HintService;
 import ir.iraniancyber.khaneshyar.service.question.QuestionService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,7 +21,7 @@ public class HintController {
         this.questionService = questionService;
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<SaveDto> createHint(@RequestBody @Valid HintSaveDto hintSaveDto) {
         Question question = questionService.findById(hintSaveDto.getQuestionId());
         Hint hint = hintSaveDto.convertToHint(question);
