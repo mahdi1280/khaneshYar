@@ -44,6 +44,16 @@ public class QuestionController {
         return ResponseEntity.ok(questionDtos);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<List<QuestionDto>> findAllByExamId(@PathVariable int id) {
+        Exam exam = examService.findById(id);
+        List<Question> questions = questionService.findAllByExam(exam);
+        List<QuestionDto> questionDtos = questions.stream()
+                .map(QuestionDto::convertToDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(questionDtos);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<SaveDto> delete(@PathVariable int id) {
         questionService.delete(id);

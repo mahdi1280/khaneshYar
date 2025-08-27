@@ -137,15 +137,7 @@
     <thead>
     <tr>
         <th scope="col">Title</th>
-        <th scope="col">o1</th>
-        <th scope="col">o2</th>
-        <th scope="col">o3</th>
-        <th scope="col">o4</th>
-        <th scope="col">carrot</th>
-        <th scope="col">h1</th>
-        <th scope="col">h2</th>
-        <th scope="col">h3</th>
-        <th scope="col">h4</th>
+        <th scope="col">creationDate</th>
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
     </tr>
@@ -155,27 +147,15 @@
 </table>
 </center>
 <script>
-    var res = [
-        {id: 1, title:"2+2=",o1:3,o2:4,o3:5,o4:6,carrot:2,h1:"No",h2:"6 is false.",h3:"4 or 5",h4:"4 is carrot"},
-        {id: 2, title:"7*8=",o1:56,o2:74,o3:51,o4:62,carrot:1,h1:"No",h2:"62 is false.",h3:"51 or 56",h4:"56 is carrot"}
-    ];
 
-    function renderTable() {
+    function renderTable(res) {
         var tbody = document.querySelector("#table tbody");
         tbody.innerHTML = "";
         for (var i = 0; i < res.length; i++) {
             var row = document.createElement("tr");
             row.innerHTML = `
                     <td title="${res[i].title}">${res[i].title}</td>
-                    <td>${res[i].o1}</td>
-                    <td>${res[i].o2}</td>
-                    <td>${res[i].o3}</td>
-                    <td>${res[i].o4}</td>
-                    <td>${res[i].carrot}</td>
-                    <td>${res[i].h1}</td>
-                    <td>${res[i].h2}</td>
-                    <td>${res[i].h3}</td>
-                    <td>${res[i].h4}</td>
+                    <td title="${res[i].creationDate}">${res[i].creationDate}</td>
                     <td><button onclick='d(${res[i].id})' class='b-d'>Delete</button></td>
                     <td><button onclick='u(${res[i].id})' class='b-u'>Update</button></td>
                 `;
@@ -183,21 +163,32 @@
         }
     }
 
-    // Dummy functions for buttons to avoid errors
-    function d(id) {
-        alert('Delete question with ID: ' + id);
-    }
-    function u(id) {
-        alert('Update question with ID: ' + id);
-    }
+    // // Dummy functions for buttons to avoid errors
+    // function d(id) {
+    //     alert('Delete question with ID: ' + id);
+    // }
+    // function u(id) {
+    //     alert('Update question with ID: ' + id);
+    // }
 
     // Initial render
-    renderTable();
+    // renderTable();
 
     // Example: Add question button event (this can be customized)
-    document.getElementById('add-question').addEventListener('click', function() {
-        location.replace("/saveQuestion")
-    });
+    // document.getElementById('add-question').addEventListener('click', function() {
+    //     location.replace("/saveQuestion")
+    // });
+
+
+    let params = new URLSearchParams(window.location.search)
+    let examId = params.get("id");
+    fetch("http://localhost:8083/questions/"+examId)
+        .then(res=>res.json())
+        .then(res=>{
+            renderTable(res);
+        })
+
+
 </script>
 </body>
 </html>

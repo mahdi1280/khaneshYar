@@ -109,4 +109,9 @@ public class QuestionServiceImpl implements QuestionService {
 
         return question.getId();
     }
+
+    @Override
+    public List<Question> findAllByExam(Exam exam) {
+        return questionRepository.findAllByExamAndDisableDateIsNull(exam);
+    }
 }
