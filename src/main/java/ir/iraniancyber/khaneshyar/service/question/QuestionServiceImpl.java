@@ -43,7 +43,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void update(int id, Question updatedQues) {
+    public void updateQuestion(int id, Question updatedQues) {
         Question question = questionRepository.findById(id)
                 .orElseThrow(() -> new RuleException("Question.not.found"));
         question.setTitle(updatedQues.getTitle());

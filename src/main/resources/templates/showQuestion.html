@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Questions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         /* Reset some basic elements */
         body {
@@ -156,28 +160,29 @@
             row.innerHTML = `
                     <td title="${res[i].title}">${res[i].title}</td>
                     <td title="${res[i].creationDate}">${res[i].creationDate}</td>
-                    <td><button onclick='d(${res[i].id})' class='b-d'>Delete</button></td>
-                    <td><button onclick='u(${res[i].id})' class='b-u'>Update</button></td>
-                `;
+                    <td><button onclick='deleteQuestion(${res[i].id})' class='b-d'>Delete</button></td>
+                    <td><a href="http://localhost:8083/updateQuestion?id=${res[i].id}" class='b-q btn btn-success'>Update</a></td>
+
+                    `;
             tbody.appendChild(row);
         }
     }
 
-    // // Dummy functions for buttons to avoid errors
-    // function d(id) {
-    //     alert('Delete question with ID: ' + id);
-    // }
-    // function u(id) {
-    //     alert('Update question with ID: ' + id);
-    // }
+    // Dummy functions for buttons to avoid errors
+    function deleteQuestion(id) {
+        fetch("http://localhost:8083/questions/" + id, { method: "DELETE" })
+            .then(res => res.json())
+            .then(res => {
+                renderTable(res);
+                // بعد از حذف موفق، صفحه ریفرش میشه
+                window.location.reload();
+            })
 
-    // Initial render
-    // renderTable();
+        alert('Delete question with ID: ' + id);
+    }
 
-    // Example: Add question button event (this can be customized)
-    // document.getElementById('add-question').addEventListener('click', function() {
-    //     location.replace("/saveQuestion")
-    // });
+
+
 
 
     let params = new URLSearchParams(window.location.search)

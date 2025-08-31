@@ -1,14 +1,19 @@
 package ir.iraniancyber.khaneshyar.controller;
 
-import ir.iraniancyber.khaneshyar.dto.HintSaveDto;
+import ir.iraniancyber.khaneshyar.dto.HintDto.HintSaveDto;
 import ir.iraniancyber.khaneshyar.dto.SaveDto;
+import ir.iraniancyber.khaneshyar.dto.optionDto.OptionDto;
 import ir.iraniancyber.khaneshyar.model.Hint;
+import ir.iraniancyber.khaneshyar.model.Option;
 import ir.iraniancyber.khaneshyar.model.Question;
 import ir.iraniancyber.khaneshyar.service.Hint.HintService;
 import ir.iraniancyber.khaneshyar.service.question.QuestionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/hint")
@@ -43,4 +48,5 @@ public class HintController {
         hintService.update(id, hint);
         return ResponseEntity.ok(new SaveDto(hint.getId()));
     }
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface QuestionService {
     void saveQuestion(Question question);
 
-    void update(int id, Question question);
+    void updateQuestion(int id, Question question);
 
     void delete(int id);
 

@@ -1,4 +1,4 @@
-package ir.iraniancyber.khaneshyar.dto;
+package ir.iraniancyber.khaneshyar.dto.HintDto;
 
 import ir.iraniancyber.khaneshyar.model.Hint;
 import ir.iraniancyber.khaneshyar.model.Question;

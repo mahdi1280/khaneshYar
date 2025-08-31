@@ -1,5 +1,6 @@
 package ir.iraniancyber.khaneshyar.dto;
 
+import ir.iraniancyber.khaneshyar.dto.HintDto.HintSaveDto;
 import ir.iraniancyber.khaneshyar.dto.optionDto.OptionSaveDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

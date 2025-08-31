@@ -31,4 +31,9 @@ public class PageController {
     public String showQuestion() {
         return "showQuestion";
     }
+
+    @GetMapping("/updateQuestion")
+    public String updateQuestion() {
+        return "updateQuestion";
+    }
 }

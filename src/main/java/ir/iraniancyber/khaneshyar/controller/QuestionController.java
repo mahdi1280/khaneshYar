@@ -53,6 +53,13 @@ public class QuestionController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(questionDtos);
     }
+    @GetMapping("question/{id}")
+    public ResponseEntity<QuestionDto> findById(@PathVariable int id) {
+        Question question = questionService.findById(id);
+        QuestionDto questionDto =QuestionDto.convertToDto(question);
+
+        return ResponseEntity.ok(questionDto);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<SaveDto> delete(@PathVariable int id) {
@@ -65,7 +72,7 @@ public class QuestionController {
             , @Valid @RequestBody QuestionSaveDto questionSaveDto) {
         Exam exam = examService.findById(questionSaveDto.getExamId());
         Question question = questionSaveDto.convertToQuestion(exam);
-        questionService.update(id, question);
+        questionService.updateQuestion(id, question);
         return ResponseEntity.ok(new SaveDto(question.getId()));
     }
 
