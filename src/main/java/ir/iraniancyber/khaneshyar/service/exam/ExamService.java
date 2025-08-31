@@ -15,4 +15,5 @@ public interface ExamService {
     void delete(int id);
 
     void update(int id, Exam updateExam);
+
 }
