@@ -16,21 +16,24 @@
             color: #333;
             padding: 40px 20px;
         }
+
         table {
             border-collapse: separate;
             border-spacing: 0 12px;
             width: 100%;
             max-width: 1400px;
             background: #ffffffdd;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             border-radius: 12px;
             overflow: hidden;
         }
+
         th, td {
             padding: 14px 20px;
             text-align: left;
             vertical-align: middle;
         }
+
         th {
             background: #5a4bcf;
             color: white;
@@ -40,16 +43,19 @@
             font-size: 14px;
             user-select: none;
         }
+
         tr {
             background: #f4f5f9;
             border-radius: 10px;
             box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
             transition: background-color 0.3s ease;
         }
+
         tr:hover {
             background: #e0e3f8;
             cursor: pointer;
         }
+
         td {
             color: #444;
             font-size: 15px;
@@ -59,6 +65,7 @@
             text-overflow: ellipsis;
             border-radius: 8px;
         }
+
         /* Buttons container adjustment */
         td button {
             min-width: 70px;
@@ -72,24 +79,29 @@
             transition: transform 0.15s ease, box-shadow 0.15s ease;
             user-select: none;
         }
+
         td button:focus {
             outline: none;
             box-shadow: 0 0 0 2px #9b7aed;
         }
+
         td button:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 14px rgb(0 0 0 / 0.18);
             cursor: pointer;
         }
+
         /* Distinct button colors */
         .b-d {
             background-color: #e74c3c;
             box-shadow: 0 4px 8px rgb(231 76 60 / 0.4);
         }
+
         .b-u {
             background-color: #3498db;
             box-shadow: 0 4px 8px rgb(52 152 219 / 0.4);
         }
+
         /* Add Question button styling */
         button#add-question {
             margin-bottom: 30px;
@@ -107,15 +119,18 @@
             user-select: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         button#add-question:hover {
             background: #5a3c95;
             cursor: pointer;
             transform: translateY(-2px);
         }
+
         button#add-question:active {
             transform: translateY(0);
             box-shadow: 0 3px 8px rgb(90 60 149 / 0.6);
         }
+
         /* Responsive design */
         button#information {
             margin-bottom: 30px;
@@ -133,26 +148,31 @@
             user-select: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         button#information:hover {
             background: #5a3c95;
             cursor: pointer;
             transform: translateY(-2px);
         }
+
         button#information:active {
             transform: translateY(0);
             box-shadow: 0 3px 8px rgb(90 60 149 / 0.6);
         }
+
         /* Responsive design */
         @media (max-width: 600px) {
             th, td {
                 font-size: 13px;
                 padding: 10px 12px;
             }
+
             td button {
                 min-width: 60px;
                 padding: 6px 8px;
                 font-size: 12px;
             }
+
             button#add-question {
                 font-size: 15px;
                 padding: 14px;
@@ -164,21 +184,23 @@
 <center>
     <h1 id="name"></h1>
     <br>
-    <a href="http://localhost:8080/show"><button id="information">show exams</button></a>
+    <a href="http://localhost:8083/showExam">
+        <button id="information">Back</button>
+    </a>
     <br>
-<button id="add-question">Add question</button>
-<table id="table" aria-label="questions Table" role="grid">
-    <thead>
-    <tr>
-        <th scope="col">Title</th>
-        <th scope="col">creationDate</th>
-        <th scope="col">Delete</th>
-        <th scope="col">Update</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+    <button id="add-question">Add question</button>
+    <table id="table" aria-label="questions Table" role="grid">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">creationDate</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Update</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </center>
 <script>
 
@@ -200,7 +222,7 @@
 
     // Dummy functions for buttons to avoid errors
     function deleteQuestion(id) {
-        fetch("http://localhost:8083/questions/" + id, { method: "DELETE" })
+        fetch("http://localhost:8083/questions/" + id, {method: "DELETE"})
             .then(res => res.json())
             .then(res => {
                 renderTable(res);
@@ -212,31 +234,26 @@
     }
 
 
-
-
-
     let params = new URLSearchParams(window.location.search)
     let examId = params.get("id");
-    fetch("http://localhost:8083/questions/"+examId)
-        .then(res=>res.json())
-        .then(res=>{
+    fetch("http://localhost:8083/questions/" + examId)
+        .then(res => res.json())
+        .then(res => {
             renderTable(res);
         })
 
-    document.getElementById('add-question').addEventListener('click', function() {
-        location.replace("/saveQuestion?id="+examId);
+    document.getElementById('add-question').addEventListener('click', function () {
+        location.replace("/saveQuestion?id=" + examId);
     });
     fetch("http://localhost:8083/exams")
-    .then(res=>res.json())
-    .then(res=>{
-        for(var i=0;i<res.length;i++)
-        {
-            if(examId==res[i].id)
-            {
-                document.getElementById("name").innerHTML="exam name: '"+res[i].name+"'";
+        .then(res => res.json())
+        .then(res => {
+            for (var i = 0; i < res.length; i++) {
+                if (examId == res[i].id) {
+                    document.getElementById("name").innerHTML = "exam name: '" + res[i].name + "'";
+                }
             }
-        }
-    })
+        })
 </script>
 </body>
 </html>

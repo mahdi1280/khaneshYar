@@ -47,6 +47,9 @@ public class ExamController {
         return ResponseEntity.ok(examDtos);
     }
 
+//    @GetMapping
+    // todo api for get exam
+
     @DeleteMapping("/{id}")
     public ResponseEntity<SaveDto> delete(@PathVariable int id) {
         examService.delete(id);

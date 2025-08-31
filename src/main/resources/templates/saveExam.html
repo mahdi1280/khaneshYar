@@ -111,7 +111,7 @@
             document.getElementById("saveBtn").innerText = "بروزرسانی";
 
             // گرفتن اطلاعات امتحان و پر کردن فرم
-            fetch('http://localhost:8083/exams/${examId}')
+            fetch(`http://localhost:8083/exams/${examId}`)
         .then(res => res.json())
                 .then(exam => {
                     document.getElementById("name").value = exam.name;
