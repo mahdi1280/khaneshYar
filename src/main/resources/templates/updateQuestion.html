@@ -49,7 +49,7 @@
 
     <div class="card p-4 bg-light">
         <h3 class="text-center mb-4 text-primary fw-bold"> بروزرسانی سوال</h3>
-        <form onsubmit="saveQuestion(event)">
+        <form onsubmit="updateQuestion(event)">
             <div class="mb-3">
                 <label for="title" class="form-label">عنوان سوال</label>
                 <input type="text" class="form-control" id="title" placeholder="عنوان سوال را وارد کنید...">
@@ -100,93 +100,14 @@
 <script>
     let params = new URLSearchParams(window.location.search);
     let questionId = params.get("id");
+    let examId;
+
     getQuestionTitle(questionId);
     getOptions(questionId);
-    function saveQuestion(e) {
-        e.preventDefault();
-        const title = document.getElementById("title").value;
-        const o1 = document.getElementById("o1").value;
-        const o2 = document.getElementById("o2").value;
-        const o3 = document.getElementById("o3").value;
-        const o4 = document.getElementById("o4").value;
-        const correct = document.querySelector('input[name="correctOption"]:checked')?.value;
-        const h1 = document.getElementById("h1").value;
-        const h2 = document.getElementById("h2").value;
-        const h3 = document.getElementById("h3").value;
-        const h4 = document.getElementById("h4").value;
-
-        const data = {
-            title: title,
-            examId: 4,
-            optionSaveDtos: [
-                {
-                    title: o1,
-                    correct: correct == 1
-                },
-                {
-                    title: o2,
-                    correct: correct == 2
-                },
-                {
-                    title: o3,
-                    correct: correct == 3
-                },
-                {
-                    title: o4,
-                    correct: correct == 4
-                }
-            ],
-            hintSaveDtos: [
-                {
-                    title: h1,
-                    level: 1
-                },
-                {
-                    title: h2,
-                    level: 2
-                },
-                {
-                    title: h3,
-                    level: 3
-                },
-                {
-                    title: h4,
-                    level: 4
-                }
-            ]
-        };
+    getHints(questionId);
 
 
-        fetch("http://localhost:8083/questions/completeSave", {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(async res => {
-                if (res.status != "200") {
-                    const response = await res.json();
-                    console.log(response);
-                    console.log(response[0].title);
-                    showErrorToast(response[0].title)
-                    return;
-                }
-                return res.json();
-            })
-            .then(res => {
-                console.log(res);
-            });
-    }
-
-    function showErrorToast(message) {
-        document.getElementById("toastMessage").textContent = message;
-        const toastElement = document.getElementById("errorToast");
-        const toast = new bootstrap.Toast(toastElement);
-        toast.show();
-    }
-
-    function getQuestionTitle(questionId){
+    function getQuestionTitle(questionId) {
         fetch("http://localhost:8083/questions/question/" + questionId)
             .then(async res => {
                 if (res.status != "200") {
@@ -201,8 +122,9 @@
             .then(data => {
                 document.getElementById("title").value = data.title;
             });
-        }
-    function getOptions(questionId){
+    }
+
+    function getOptions(questionId) {
         fetch("http://localhost:8083/options/" + questionId)
             .then(async res => {
                 if (res.status != "200") {
@@ -215,6 +137,10 @@
                 return res.json();
             })
             .then(data => {
+
+
+                examId = data[0].examId;
+
                 document.getElementById("o1").value = data[0].title;
                 document.getElementById("o2").value = data[1].title;
                 document.getElementById("o3").value = data[2].title;
@@ -231,6 +157,139 @@
 
     }
 
+    function getHints(question) {
+        fetch("http://localhost:8083/hint/" + questionId)
+            .then(async res => {
+                if (res.status != "200") {
+                    const response = await res.json();
+                    console.log(response);
+                    console.log(response[0].title);
+                    showErrorToast(response[0].title)
+                    return;
+                }
+                return res.json();
+            })
+            .then(data => {
+
+                document.getElementById("h1").value = data[0].title;
+                document.getElementById("h2").value = data[1].title;
+                document.getElementById("h3").value = data[2].title;
+                document.getElementById("h4").value = data[3].title;
+                data.forEach((opt, idx) => {
+                    if (opt.correct) {
+                        document.querySelector(
+                            `input[name='correctOption'][value='${idx + 1}']`
+                        ).checked = true;
+                    }
+                });
+
+            });
+
+
+    }
+
+    function updateQuestion(e) {
+        e.preventDefault();
+        const title = document.getElementById("title").value;
+        const o1 = document.getElementById("o1").value;
+        const o2 = document.getElementById("o2").value;
+        const o3 = document.getElementById("o3").value;
+        const o4 = document.getElementById("o4").value;
+        const correct = document.querySelector('input[name="correctOption"]:checked')?.value;
+        const h1 = document.getElementById("h1").value;
+        const h2 = document.getElementById("h2").value;
+        const h3 = document.getElementById("h3").value;
+        const h4 = document.getElementById("h4").value;
+
+        const data = {
+
+            title: title,
+            examId: examId,
+            optionSaveDtos: [
+                {
+                    title: o1,
+                    correct: correct == 1,
+                    questionId:questionId
+
+                },
+                {
+                    title: o2,
+                    correct: correct == 2,
+                    questionId:questionId
+
+                },
+                {
+                    title: o3,
+                    correct: correct == 3,
+                    questionId:questionId
+
+                },
+                {
+                    title: o4,
+                    correct: correct == 4,
+                    questionId:questionId
+
+                }
+            ],
+            hintSaveDtos: [
+                {
+                    title: h1,
+                    level: 1,
+                    questionId:questionId
+
+                },
+                {
+                    title: h2,
+                    level: 2,
+                    questionId:questionId
+
+                },
+                {
+                    title: h3,
+                    level: 3,
+                    questionId:questionId
+
+                },
+                {
+                    title: h4,
+                    level: 4,
+                    questionId:questionId
+
+                }
+            ]
+        };
+
+
+        fetch("http://localhost:8083/questions/completeUpdate", {
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(async res => {
+                if (res.status != "200") {
+                    const response = await res.json();
+                    console.log(response);
+                    console.log(response[0].title);
+                    showErrorToast(response[0].title)
+                    return;
+                }
+                return res.json();
+            })
+            .then(res => {
+                if(res) {
+                    window.location.replace("http://localhost:8083/showQuestion?id="+examId);
+                }
+            });
+    }
+
+    function showErrorToast(message) {
+        document.getElementById("toastMessage").textContent = message;
+        const toastElement = document.getElementById("errorToast");
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
 </script>
 </body>
 </html>

@@ -19,5 +19,8 @@ public interface QuestionService {
 
     int saveCompleted(CompleteSaveDto completeSaveDto);
 
+    int updateCompleted(CompleteSaveDto completeSaveDto);
+
+
     List<Question> findAllByExam(Exam exam);
 }

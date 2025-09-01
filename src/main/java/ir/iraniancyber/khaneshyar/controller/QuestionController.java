@@ -82,4 +82,11 @@ public class QuestionController {
         int questionId = questionService.saveCompleted(completeSaveDto);
         return ResponseEntity.ok(new SaveDto(questionId));
     }
+    @PutMapping ("/completeUpdate")
+    public ResponseEntity<SaveDto> updateCompleted(
+            @Valid @RequestBody CompleteSaveDto completeSaveDto) {
+        int questionId = questionService.updateCompleted(completeSaveDto);
+        return ResponseEntity.ok(new SaveDto(questionId));
+    }
+
 }

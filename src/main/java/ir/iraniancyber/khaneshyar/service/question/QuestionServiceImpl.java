@@ -111,6 +111,40 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public int updateCompleted(CompleteSaveDto completeSaveDto) {
+
+        int questionId = completeSaveDto.getOptionSaveDtos().get(0).getQuestionId();
+        //Question Update
+        Question oldQuestion = findById(questionId);
+        oldQuestion.setTitle(completeSaveDto.getTitle());
+        saveQuestion(oldQuestion);
+        System.out.println(oldQuestion.getExam().getId());
+
+        //Options Update
+        List<Option> options = optionService.findByQuestionId(questionId);
+
+        for (int i = 0; i < options.size(); i++) {
+            options.get(i).setTitle(completeSaveDto.getOptionSaveDtos().get(i).getTitle());
+            options.get(i).setCorrect(completeSaveDto.getOptionSaveDtos().get(i).isCorrect());
+
+        }
+        optionRepository.saveAll(options);
+
+        //Hints Update
+        List<Hint> hints = hintService.findByQuestionId(questionId);
+        for (int i = 0; i < hints.size(); i++) {
+            hints.get(i).setTitle(completeSaveDto.getHintSaveDtos().get(i).getTitle());
+            hints.get(i).setLevel(completeSaveDto.getHintSaveDtos().get(i).getLevel());
+
+        }
+
+        hintRepository.saveAll(hints);
+
+        return questionId;
+    }
+
+
+    @Override
     public List<Question> findAllByExam(Exam exam) {
         return questionRepository.findAllByExamAndDisableDateIsNull(exam);
     }
