@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>جدیدترین آزمون‌ها</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* حالت روشن */
+        body.light {
+            background: #f5f5f5;
+        }
+
+        /* هدر */
+        header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        body.light header nav a {
+            color: #333;
+        }
+
+        header nav a:hover {
+            color: #ffd369;
+        }
+
+        /* دکمه تغییر حالت */
+        .toggle-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #ffd369;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background: #ffb347;
+        }
+
+        /* بخش اصلی */
+        main {
+            flex: 1;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+
+        body.light h1 {
+            color: #333;
+        }
+
+        /* کارت‌ها */
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .exam-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+        }
+
+        body:not(.light) .exam-card {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .exam-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .exam-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .exam-info {
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .exam-icon {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<!-- هدر -->
+<header>
+    <nav>
+        <a href="#">خانه</a>
+        <a href="#">ورود</a>
+        <a href="#">خروج</a>
+    </nav>
+    <button class="toggle-btn" onclick="toggleTheme()">تغییر حالت</button>
+</header>
+
+<!-- محتوای اصلی -->
+<main>
+    <h1>جدیدترین آزمون‌ها</h1>
+    <div class="exam-grid">
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون ریاضی</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: سخت</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۶/۱۰</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون فیزیک</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۶/۰۵</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون شیمی</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: آسان</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۶/۰۲</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون زیست</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
+            <div class="exam-info"><spanclass="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۲۸</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون تاریخ</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: آسان</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۲۵</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون جغرافیا</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۲۳</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون ادبیات</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: سخت</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۲۰</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون فلسفه</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: سخت</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۱۸</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون جامعه‌شناسی</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۱۵</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون اقتصاد</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: آسان</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۱۲</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون هنر</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۱۰</div>
+        </div>
+        <div class="exam-card">
+            <div class="exam-title"><span class="exam-icon">📝</span> آزمون رایانه</div>
+            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: سخت</div>
+            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۰۸</div>
+        </div>
+    </div>
+</main>
+
+<script>
+    function toggleTheme() {
+        document.body.classList.toggle("light");
+    }
+</script>
+</body>
+</html>
