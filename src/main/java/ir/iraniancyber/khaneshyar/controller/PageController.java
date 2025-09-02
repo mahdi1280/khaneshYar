@@ -36,4 +36,10 @@ public class PageController {
     public String updateQuestion() {
         return "updateQuestion";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
 }
