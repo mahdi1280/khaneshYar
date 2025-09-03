@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>نمایش سوال</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { height: 100%; }
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, "IRANSans", "Vazirmatn", Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #2575FC 0%, #6A11CB 100%);
+            display: grid;
+            place-items: center;
+            color: #0f172a;
+        }
+
+        .card {
+            width: min(92vw, 720px);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(6px);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            padding: clamp(16px, 3vw, 32px);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .title {
+            font-size: clamp(20px, 3.5vw, 28px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #0b132a;
+            margin: 0;
+            text-align: center;
+        }
+
+        .subtitle {
+            margin: 0 0 20px 0;
+            font-size: clamp(16px, 2.8vw, 18px);
+            color: #334155;
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            gap: 14px;
+        }
+
+        .option {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: start;
+            gap: 10px;
+            padding: 14px 16px;
+            border: 2px solid transparent;
+            border-radius: 14px;
+            background: #ffffff;
+            transition: border-color .2s ease, box-shadow .2s ease, transform .06s ease;
+            cursor: pointer;
+        }
+        .option:hover {
+            border-color: #bfdbfe;
+            box-shadow: 0 6px 18px rgba(37,117,252,0.15);
+            transform: translateY(-1px);
+        }
+
+        input[type="radio"] {
+            inline-size: 20px;
+            block-size: 20px;
+            accent-color: #2575FC;
+            margin-top: 2px;
+        }
+
+        .option-title { margin: 0 0 4px 0; font-weight: 700; }
+        .option-desc { margin: 0; color: #475569; font-size: 14px; }
+
+        .actions {
+            margin-top: 8px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-submit {
+            appearance: none;
+            border: 0;
+            padding: 12px 18px;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 14px;
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(37,99,235,0.35);
+            transition: transform .08s ease, box-shadow .2s ease, filter .2s ease;
+        }
+        .btn-submit:hover { filter: brightness(1.03); box-shadow: 0 12px 28px rgba(37,99,235,0.45); }
+        .btn-submit:active { transform: translateY(1px); }
+
+        .btn-back {
+            appearance: none;
+            border: 0;
+            padding: 12px 18px;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 14px;
+            background: #6A11CB;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(106,17,203,0.35);
+            transition: transform .08s ease, box-shadow .2s ease, filter .2s ease;
+        }
+        .btn-back:hover { filter: brightness(1.05); box-shadow: 0 12px 28px rgba(106,17,203,0.45); }
+        .btn-back:active { transform: translateY(1px); }
+
+        .option:has(input[type="radio"]:focus-visible),
+        .btn-submit:focus-visible,
+        .btn-back:focus-visible {
+            outline: 3px solid #93c5fd;
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 380px) {
+            .option { padding: 12px; }
+            .actions { flex-direction: column; }
+            .btn-submit, .btn-back { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<main class="card" role="main">
+    <header class="header">
+        <h1 class="title">نمایش سوال</h1>
+    </header>
+
+    <p class="subtitle" id="question-title">عنوان سوال: بزرگ ترین منظومه ی شمسی کدام است؟</p>
+
+    <form aria-labelledby="question-title">
+        <label class="option">
+            <input type="radio" name="answer" value="a" required />
+            <div>
+                <p class="option-title">گزینه ۱ :</p>
+                <p class="option-desc">زمین</p>
+            </div>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="answer" value="b" />
+            <div>
+                <p class="option-title">گزینه ۲ :</p>
+                <p class="option-desc">زحل</p>
+            </div>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="answer" value="c" />
+            <div>
+                <p class="option-title">گزینه ۳ :</p>
+                <p class="option-desc">مشتری</p>
+            </div>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="answer" value="d" />
+            <div>
+                <p class="option-title">گزینه ۴ :</p>
+                <p class="option-desc">مریخ</p>
+            </div>
+        </label>
+
+        <div class="actions">
+            <button class="btn-submit" type="submit">ثبت</button>
+            <button class="btn-back" type="button">بازگشت</button>
+        </div>
+    </form>
+</main>
+
+<script>
+    document.querySelector('form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = new FormData(this);
+        const picked = data.get('answer');
+        alert('گزینه انتخابی شما: ' + picked);
+    });
+
+    document.querySelector('.btn-back')?.addEventListener('click', function() {
+        alert('بازگشت زده شد');
+    });
+</script>
+</body>
+</html>
+
