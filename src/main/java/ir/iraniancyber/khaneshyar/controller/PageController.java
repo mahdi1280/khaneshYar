@@ -47,4 +47,9 @@ public class PageController {
         return "register";
     }
 
+    @GetMapping("/showExamQuestion")
+    public String ShowExamQuestion() {
+        return "showExamQuestion";
+    }
+
 }
