@@ -78,7 +78,7 @@
             <div class="mb-3">
                 <div>
                     <label for="HARD" class="form-label">سخت</label>
-                    <input type="radio" id="HARD" value="HARD" name="level"/>
+                    <input type="radio" id="HARD" value="HARD" name="level" checked/>
                 </div>
                 <div>
                     <label for="MEDIUM" class="form-label">متوسط</label>
@@ -110,13 +110,13 @@
             document.getElementById("formTitle").innerText = "بروزرسانی امتحان";
             document.getElementById("saveBtn").innerText = "بروزرسانی";
 
-            // گرفتن اطلاعات امتحان و پر کردن فرم
+
             fetch(`http://localhost:8083/exams/${examId}`)
-        .then(res => res.json())
+                .then(res => res.json())
                 .then(exam => {
                     document.getElementById("name").value = exam.name;
                     document.getElementById("description").value = exam.description;
-                    const radio = document.querySelector(input[name="level"][value="${exam.level}"]);
+                    const radio = document.querySelector(input[name = "level"][value = `${exam.level}`]);
                     if (radio) radio.checked = true;
                 });
         }
@@ -138,14 +138,15 @@
 
         fetch("http://localhost:8083/exams", {
             method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify({ name, level, description })
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({name, level, description})
         })
-            .then(async res => {if (res.status !== 200) {
-                const response = await res.json();
-                showErrorToast(response[0].title)
-                return;
-            }
+            .then(async res => {
+                if (res.status !== 200) {
+                    const response = await res.json();
+                    showErrorToast(response[0].title)
+                    return;
+                }
                 return res.json();
             })
             .then(res => {
@@ -160,24 +161,24 @@
         const level = document.querySelector("input[name='level']:checked").value;
         const description = document.getElementById("description").value;
 
-        fetch('http://localhost:8083/exams/${id}', {
-        method: "PUT",
-            headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ name, level, description })
-    })
-    .then(async res => {
-        if (!res.ok) {
-            const response = await res.json();
-            showErrorToast(response[0]?.title);
-            return;
-        }
-        return res.json();
-    })
-        .then(res => {
-            if (res) {
-                window.location.href = "http://localhost:8083/showExam";
-            }
-        });
+        fetch(`http://localhost:8083/exams/${id}`, {
+            method: "PUT",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({name, level, description})
+        })
+            .then(async res => {
+                if (!res.ok) {
+                    const response = await res.json();
+                    showErrorToast(response[0]?.title);
+                    return;
+                }
+                return res.json();
+            })
+            .then(res => {
+                if (res) {
+                    window.location.href = "http://localhost:8083/showExam";
+                }
+            });
     }
 
     function showErrorToast(message) {

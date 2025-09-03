@@ -47,8 +47,15 @@ public class ExamController {
         return ResponseEntity.ok(examDtos);
     }
 
-//    @GetMapping
+    //    @GetMapping
     // todo api for get exam
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ExamDto> findById(@PathVariable int id) {
+        Exam exam = examService.findById(id);
+        ExamDto examDto = ExamDto.convertToDto(exam);
+        return ResponseEntity.ok(examDto);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<SaveDto> delete(@PathVariable int id) {
