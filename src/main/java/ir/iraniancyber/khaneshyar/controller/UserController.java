@@ -4,6 +4,8 @@ import ir.iraniancyber.khaneshyar.dto.UserDto;
 import ir.iraniancyber.khaneshyar.model.Role;
 import ir.iraniancyber.khaneshyar.model.User;
 import ir.iraniancyber.khaneshyar.service.user.CustomUserDetailService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,10 +13,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class UserController {
 
     private final PasswordEncoder passwordEncoder;
@@ -40,12 +44,16 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/login") //todo paniz connect this page to login page
-    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
         try {
             Authentication authenticate = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authenticate);
+
+            HttpSession session = request.getSession(true);
+            session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(401).build();
