@@ -31,6 +31,7 @@ public class UserController {
     public ResponseEntity<?> register(@Valid @RequestBody UserDto userDto) {
         User user = new User();
         user.setName(userDto.getName());
+        user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setNationality(userDto.getNationality());
         user.setNationalCode(userDto.getNationalCode());
