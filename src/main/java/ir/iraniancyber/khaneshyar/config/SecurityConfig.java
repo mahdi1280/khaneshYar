@@ -3,6 +3,7 @@ package ir.iraniancyber.khaneshyar.config;
 import ir.iraniancyber.khaneshyar.service.user.CustomUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,8 +33,12 @@ public class SecurityConfig {
                                         .failureUrl("/login?error=true")
                                         .permitAll()
                 )
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/login", "/", "/register")
-                        .permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/login", "/", "/register"
+                                ,"/users/login")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users/login", "/users/register")
+                        .permitAll()
+                        .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
