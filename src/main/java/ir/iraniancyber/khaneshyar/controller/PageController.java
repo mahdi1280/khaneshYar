@@ -1,5 +1,6 @@
 package ir.iraniancyber.khaneshyar.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class PageController {
     }
 
     @GetMapping("/showQuestion")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String showQuestion() {
         return "showQuestion";
     }
@@ -52,4 +54,9 @@ public class PageController {
         return "showExamQuestion";
     }
 
+
+    @GetMapping("/403")
+    public String accessDen() {
+        return "403";
+    }
 }
