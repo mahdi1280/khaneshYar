@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحه ثبت‌نام</title>
-    <!-- لینک به بوت‌استرپ -->
+    <title>صفحه ثبت ‌نام</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -15,37 +15,98 @@
             justify-content: center;
             align-items: center;
         }
+
         .register-card {
             background-color: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 400px;
         }
+
         .register-card h2 {
             margin-bottom: 25px;
             text-align: center;
             color: #007bff;
         }
+
         .form-control {
             margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
+         aria-atomic="true">
+        <div class="d-flex align-items-center">
+            <img src="/cat.png"
+                 alt="avatar"
+                 class="rounded-circle me-2"
+                 style="width:30px; height:30px; animation: shake 0.6s ease-in-out 2;">
+            <div class="toast-body" id="toastMessage">خطا رخ داده است</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
 <div class="register-card">
-    <h2>ثبت‌نام</h2>
-    <form>
-        <input type="text" class="form-control" placeholder="نام" required>
-        <input type="text" class="form-control" placeholder="نام کاربری" required>
-        <input type="password" class="form-control" placeholder="پسورد" required>
-        <input type="text" class="form-control" placeholder="کد ملی" required>
-        <input type="text" class="form-control" placeholder="ملیت" required>
-        <button type="submit" class="btn btn-primary w-100">ثبت‌نام</button>
+    <h2>ثبت ‌نام</h2>
+    <form id="register-form">
+        <input type="text" class="form-control" id="name" placeholder="نام" required>
+        <input type="text" class="form-control" id="username" placeholder="نام کاربری" required>
+        <input type="password" class="form-control" id="password" placeholder="رمز" required>
+        <input type="text" class="form-control" id="nationalCode" placeholder="کد ملی" required>
+        <input type="text" class="form-control" id="nationality" placeholder="ملیت" required>
+        <button type="submit" class="btn btn-primary w-100">ثبت ‌نام</button>
     </form>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("register-form").addEventListener("submit", async function (register) {
+            register.preventDefault();
+            const userDto = {
+                name: document.getElementById("name").value,
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value,
+                nationalCode: document.getElementById("nationalCode").value,
+                nationality: document.getElementById("nationality").value
+            };
+            const response = await fetch("http://localhost:8083/users/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+
+                },
+                body: JSON.stringify(userDto)
+            })
+                .then(async res => {
+                    if (res.status !== 200) {
+                        const response = await res.json();
+                        showErrorToast(response.title||response.message);
+                        return;
+                    }
+                    return res.json();
+                })
+                .then(res => {
+                    if (res) {
+                        window.location.href = "http://localhost:8083/login";
+                    }
+                });
+        }
+    )
+
+    function showErrorToast(message) {
+        document.getElementById("toastMessage").textContent = message;
+        const toastElement = document.getElementById("errorToast");
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+</script>
+
 </body>
 </html>
