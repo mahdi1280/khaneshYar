@@ -116,7 +116,7 @@
                 .then(exam => {
                     document.getElementById("name").value = exam.name;
                     document.getElementById("description").value = exam.description;
-                    const radio = document.querySelector(input[name = "level"][value = `${exam.level}`]);
+                    const radio = document.querySelector(`input[name = "level" ][value = "${exam.level}"]`);
                     if (radio) radio.checked = true;
                 });
         }
@@ -158,7 +158,7 @@
 
     function updateExam(id) {
         const name = document.getElementById("name").value;
-        const level = document.querySelector("input[name='level']:checked").value;
+        const level = document.querySelector(`input[name='level']:checked`).value;
         const description = document.getElementById("description").value;
 
         fetch(`http://localhost:8083/exams/${id}`, {
