@@ -14,16 +14,19 @@ public class PageController {
     }
 
     @GetMapping("/showExam")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String showExam() {
         return "showExam";
     }
 
     @GetMapping("/saveExam")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String saveExam() {
         return "saveExam";
     }
 
     @GetMapping("/saveQuestion")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String saveQuestion() {
         return "saveQuestion";
     }
@@ -35,6 +38,7 @@ public class PageController {
     }
 
     @GetMapping("/updateQuestion")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String updateQuestion() {
         return "updateQuestion";
     }
@@ -50,10 +54,10 @@ public class PageController {
     }
 
     @GetMapping("/showExamQuestion")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String ShowExamQuestion() {
         return "showExamQuestion";
     }
-
 
     @GetMapping("/403")
     public String accessDen() {
