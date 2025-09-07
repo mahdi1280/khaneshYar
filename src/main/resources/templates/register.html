@@ -42,7 +42,6 @@
     <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
          aria-atomic="true">
         <div class="d-flex align-items-center">
-            <img src="/cat.png"
                  alt="avatar"
                  class="rounded-circle me-2"
                  style="width:30px; height:30px; animation: shake 0.6s ease-in-out 2;">
@@ -57,11 +56,11 @@
 <div class="register-card">
     <h2>ثبت ‌نام</h2>
     <form id="register-form">
-        <input type="text" class="form-control" id="name" placeholder="نام" required>
-        <input type="text" class="form-control" id="username" placeholder="نام کاربری" required>
-        <input type="password" class="form-control" id="password" placeholder="رمز" required>
-        <input type="text" class="form-control" id="nationalCode" placeholder="کد ملی" required>
-        <input type="text" class="form-control" id="nationality" placeholder="ملیت" required>
+        <input type="text" class="form-control" id="username" placeholder="نام کاربری" >
+        <input type="password" class="form-control" id="password" placeholder="رمز" >
+        <input type="text" class="form-control" id="nationalCode" placeholder="کد ملی" >
+        <input type="text" class="form-control" id="nationality" placeholder="ملیت" >
+        <input type="text" class="form-control" id="name" placeholder="نام" >
         <button type="submit" class="btn btn-primary w-100">ثبت ‌نام</button>
     </form>
 </div>
@@ -70,11 +69,11 @@
     document.getElementById("register-form").addEventListener("submit", async function (register) {
             register.preventDefault();
             const userDto = {
-                name: document.getElementById("name").value,
                 username: document.getElementById("username").value,
                 password: document.getElementById("password").value,
                 nationalCode: document.getElementById("nationalCode").value,
-                nationality: document.getElementById("nationality").value
+                nationality: document.getElementById("nationality").value,
+                name: document.getElementById("name").value
             };
             const response = await fetch("http://localhost:8083/users/register", {
                 method: "POST",
@@ -87,7 +86,7 @@
                 .then(async res => {
                     if (res.status !== 200) {
                         const response = await res.json();
-                        showErrorToast(response.title||response.message);
+                        showErrorToast(response[0].title)
                         return;
                     }
                     return res.json();
