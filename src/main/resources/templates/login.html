@@ -77,21 +77,29 @@
 
 <script>
     function login() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        fetch(`http://localhost:8083/users/login?username=${username}&password=${password}`, {
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        fetch("http://localhost:8083/users/login", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
-            }
+            },
+            body: JSON.stringify({ username, password })
         })
             .then(async res => {
-                if (res.status != "200") {
+                if (res.status !== 200) {
+                    const response = await res.json();
+                    console.log(response);
                     showErrorToast('کاربر مورد نظر یافت نشد')
                     return;
                 }
-                window.location.replace("http://localhost:8083");
+                return res.json();
             })
+            .then(res => {
+                if(res) {
+                    window.location.replace("http://localhost:8083");
+                }
+            });
     }
 
     function showErrorToast(message) {
