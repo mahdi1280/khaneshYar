@@ -5,6 +5,7 @@ import ir.iraniancyber.khaneshyar.model.Role;
 import ir.iraniancyber.khaneshyar.model.User;
 import ir.iraniancyber.khaneshyar.service.user.CustomUserDetailService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -58,5 +59,10 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(401).build();
         }
+    }
+
+    @GetMapping("/")
+    public void findAllUsers() {
+        customUserDetailService.findAll();
     }
 }

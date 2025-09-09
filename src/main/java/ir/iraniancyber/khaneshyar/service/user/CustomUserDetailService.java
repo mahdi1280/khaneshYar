@@ -30,4 +30,8 @@ public class CustomUserDetailService implements UserDetailsService {
     public void save(User user) {
         userRepository.save(user);
     }
+
+    public void findAll() {
+        userRepository.findAll();
+    }
 }
