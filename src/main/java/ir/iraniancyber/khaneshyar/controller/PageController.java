@@ -73,4 +73,9 @@ public class PageController {
     public String allExam() {
         return "theNewestTests";
     }
+
+    @GetMapping("/showUsers")
+    public String showUsers() {
+        return "showUsers";
+    }
 }
