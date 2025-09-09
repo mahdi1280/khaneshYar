@@ -59,6 +59,11 @@ public class PageController {
         return "showExamQuestion";
     }
 
+    @GetMapping("/theNewestTests")
+    public String theNewestTests() {
+        return "theNewestTests";
+    }
+
     @GetMapping("/403")
     public String accessDen() {
         return "403";

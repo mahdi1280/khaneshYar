@@ -20,12 +20,12 @@
 
         /* Header */
         header {
-            background: linear-gradient(135deg, #6a5acd, #4f46e5);
+            background: linear-gradient(90deg, #9953cd, #613383);
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -62,7 +62,7 @@
         }
 
         nav a:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* Container */
@@ -76,7 +76,7 @@
             background: white;
             padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
         }
 
@@ -96,14 +96,14 @@
             background: #f9f9ff;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 18px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
         }
 
         .card h3 {
@@ -120,11 +120,11 @@
         .scoreboard {
             display: flex;
             justify-content: space-around;
-            background: linear-gradient(135deg, #4f46e5, #6a5acd);
+            background: linear-gradient(135deg, #8883cd, #514987);
             padding: 20px;
             border-radius: 12px;
             color: white;
-            box-shadow: 0 5px 18px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
         }
 
@@ -141,7 +141,7 @@
         footer {
             text-align: center;
             padding: 15px;
-            background-color: #4f46e5;
+            background-color: #613383;
             color: white;
             margin-top: 40px;
             font-size: 0.9rem;
@@ -168,11 +168,11 @@
 <!-- Header -->
 <header>
     <nav>
-        <a href="#home">خانه</a>
-        <a href="#latest-tests">جدیدترین آزمون‌ها</a>
-        <a href="#my-tests">آزمون‌های قبلی من</a>
-        <a href="#login">ورود</a>
-        <a href="#logout">خروج</a>
+        <a href="http://localhost:8083/">خانه</a>
+        <a href="http://localhost:8083/theNewestTests">جدیدترین آزمون‌ها</a>
+        <a href="http://localhost:8083/register">ساخت حساب </a>
+        <a href="http://localhost:8083/login">ورود</a>
+        <a href="http://localhost:8083/logout">خروج</a>
     </nav>
     <div class="logo">
         <span>K</span><span>h</span><span>a</span><span>n</span><span>e</span><span>s</span><span>h</span><span>Y</span><span>a</span><span>r</span>
@@ -184,7 +184,9 @@
     <div class="section" id="about">
         <h2>درباره‌ی برنامه</h2>
         <p>
-            خوانش‌یار یک پلتفرم تعاملی برای مدیریت آزمون‌ها و بهبود فرآیند یادگیری است. کاربران می‌توانند آزمون‌های جدید را مشاهده و شرکت کنند، آزمون‌های قبلی خود را مرور کنند و با دریافت بازخورد مرحله‌ای به بهترین نتیجه دست پیدا کنند.
+            خوانش‌یار یک پلتفرم تعاملی برای مدیریت آزمون‌ها و بهبود فرآیند یادگیری است. کاربران می‌توانند آزمون‌های جدید
+            را مشاهده و شرکت کنند، آزمون‌های قبلی خود را مرور کنند و با دریافت بازخورد مرحله‌ای به بهترین نتیجه دست پیدا
+            کنند.
         </p>
     </div>
 
@@ -208,11 +210,16 @@
     <div class="section" id="latest-tests">
         <h2>۵ آزمون جدید</h2>
         <div class="tests">
-            <div class="card"><h3>آزمون ۱</h3><p>مهارت‌های درک مطلب</p></div>
-            <div class="card"><h3>آزمون ۲</h3><p>تحلیل متون پیچیده</p></div>
-            <div class="card"><h3>آزمون ۳</h3><p>یادگیری سریع</p></div>
-            <div class="card"><h3>آزمون ۴</h3><p>تمرینات تعاملی</p></div>
-            <div class="card"><h3>آزمون ۵</h3><p>سوالات پیشرفته</p></div>
+            <div class="card"><h3>آزمون ۱</h3>
+                <p>مهارت‌های درک مطلب</p></div>
+            <div class="card"><h3>آزمون ۲</h3>
+                <p>تحلیل متون پیچیده</p></div>
+            <div class="card"><h3>آزمون ۳</h3>
+                <p>یادگیری سریع</p></div>
+            <div class="card"><h3>آزمون ۴</h3>
+                <p>تمرینات تعاملی</p></div>
+            <div class="card"><h3>آزمون ۵</h3>
+                <p>سوالات پیشرفته</p></div>
         </div>
     </div>
 
@@ -220,9 +227,12 @@
     <div class="section" id="incomplete-tests">
         <h2>آزمون‌های تکمیل‌نشده‌ی من</h2>
         <div class="incomplete-tests">
-            <div class="card"><h3>آزمون مهارت خواندن</h3><p>تکمیل شده: ۴۰٪</p></div>
-            <div class="card"><h3>آزمون سرعت پاسخ</h3><p>تکمیل شده: ۶۰٪</p></div>
-            <div class="card"><h3>آزمون درک متن</h3><p>تکمیل شده: ۷۵٪</p></div>
+            <div class="card"><h3>آزمون مهارت خواندن</h3>
+                <p>تکمیل شده: ۴۰٪</p></div>
+            <div class="card"><h3>آزمون سرعت پاسخ</h3>
+                <p>تکمیل شده: ۶۰٪</p></div>
+            <div class="card"><h3>آزمون درک متن</h3>
+                <p>تکمیل شده: ۷۵٪</p></div>
         </div>
     </div>
 
@@ -230,11 +240,16 @@
     <div class="section" id="top-users">
         <h2>باهوش‌ترین افراد</h2>
         <div class="top-users">
-            <div class="card"><h3>زهرا احمدی</h3><p>نمره: ۹۸/۱۰۰</p></div>
-            <div class="card"><h3>علی رضایی</h3><p>نمره: ۹۵/۱۰۰</p></div>
-            <div class="card"><h3>مریم صادقی</h3><p>نمره: ۹۳/۱۰۰</p></div>
-            <div class="card"><h3>حسین کاظمی</h3><p>نمره: ۹۰/۱۰۰</p></div>
-            <div class="card"><h3>سارا محمدی</h3><p>نمره: ۸۸/۱۰۰</p></div>
+            <div class="card"><h3>زهرا احمدی</h3>
+                <p>نمره: ۹۸/۱۰۰</p></div>
+            <div class="card"><h3>علی رضایی</h3>
+                <p>نمره: ۹۵/۱۰۰</p></div>
+            <div class="card"><h3>مریم صادقی</h3>
+                <p>نمره: ۹۳/۱۰۰</p></div>
+            <div class="card"><h3>حسین کاظمی</h3>
+                <p>نمره: ۹۰/۱۰۰</p></div>
+            <div class="card"><h3>سارا محمدی</h3>
+                <p>نمره: ۸۸/۱۰۰</p></div>
         </div>
     </div>
 
@@ -242,9 +257,12 @@
     <div class="section" id="suggestions">
         <h2>پیشنهادات هوشمند برای شما</h2>
         <div class="suggestions">
-            <div class="card"><h3>آزمون درک مطلب پیشرفته</h3><p>بر اساس عملکرد اخیر شما پیشنهاد می‌شود.</p></div>
-            <div class="card"><h3>تمرین افزایش سرعت یادگیری</h3><p>برای بهبود سرعت پاسخگویی.</p></div>
-            <div class="card"><h3>چالش روزانه</h3><p>آزمون روزانه برای تقویت مهارت‌هایتان.</p></div>
+            <div class="card"><h3>آزمون درک مطلب پیشرفته</h3>
+                <p>بر اساس عملکرد اخیر شما پیشنهاد می‌شود.</p></div>
+            <div class="card"><h3>تمرین افزایش سرعت یادگیری</h3>
+                <p>برای بهبود سرعت پاسخگویی.</p></div>
+            <div class="card"><h3>چالش روزانه</h3>
+                <p>آزمون روزانه برای تقویت مهارت‌هایتان.</p></div>
         </div>
     </div>
 

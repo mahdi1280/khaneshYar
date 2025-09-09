@@ -11,10 +11,68 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #7bdab1, #ceacf1);
             color: #333;
-            padding: 40px 20px;
+            /*padding: 40px 20px;*/
         }
+
+        header {
+            background: linear-gradient(90deg, #9953cd, #613383);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+
+        .logo span:nth-child(odd) {
+            color: #ffcb05;
+            text-decoration: underline;
+            text-decoration-color: #ffcb05;
+        }
+
+        .logo span:nth-child(even) {
+            color: white;
+            text-decoration: underline;
+            text-decoration-color: white;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav a {
+            margin: 0 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 10px;
+            }
+        }
+
 
         table {
             border-collapse: separate;
@@ -108,6 +166,7 @@
 
         /* Add Exam button styling */
         button#add-exam {
+            margin-top: 100px;
             margin-bottom: 30px;
             width: 100%;
             max-width: 900px;
@@ -156,6 +215,21 @@
     </style>
 </head>
 <body>
+
+<header>
+    <div class="logo">
+        <span>K</span><span>h</span><span>a</span><span>n</span><span>e</span><span>s</span><span>h</span><span>Y</span><span>a</span><span>r</span>
+    </div>
+
+    <nav>
+        <a href="http://localhost:8083/">خانه</a>
+        <a href="http://localhost:8083/theNewestTests">جدیدترین آزمون‌ها</a>
+        <a href="http://localhost:8083/register">ساخت حساب </a>
+        <a href="http://localhost:8083/login">ورود</a>
+        <a href="http://localhost:8083/logout">خروج</a>
+    </nav>
+
+</header>
 <center>
     <a href="/saveExam">
         <button id="add-exam"> Add Exam</button>
@@ -203,7 +277,6 @@
     fetch("http://localhost:8083/exams")
         .then(res => res.json())
         .then(res => renderTable(res))
-
 
 
     function deleteExam(id, btn) {

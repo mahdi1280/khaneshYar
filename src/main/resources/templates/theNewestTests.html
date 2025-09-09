@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <title>جدیدترین آزمون‌ها</title>
@@ -10,15 +10,16 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Vazirmatn', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             transition: background 0.3s, color 0.3s;
         }
 
         body {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, #7bdab1, #ceacf1);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+
         }
 
         /* حالت روشن */
@@ -28,44 +29,59 @@
 
         /* هدر */
         header {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 15px 40px;
+            background: linear-gradient(90deg, #9953cd, #613383);
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        header nav a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 25px;
-            font-weight: 600;
-            transition: color 0.3s;
+        .logo span:nth-child(odd) {
+            color: #ffcb05;
+            /*text-decoration: underline;*/
+            text-decoration-color: #ffcb05;
         }
 
-        body.light header nav a {
-            color: #333;
+        .logo span:nth-child(even) {
+            color: white;
+            /*text-decoration: underline;*/
+            text-decoration-color: white;
         }
 
-        header nav a:hover {
-            color: #ffd369;
-        }
-
-        /* دکمه تغییر حالت */
-        .toggle-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 8px;
-            background: #ffd369;
+        .logo {
+            font-size: 1.8rem;
             font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+            letter-spacing: 1px;
         }
 
-        .toggle-btn:hover {
-            background: #ffb347;
+        nav a {
+            margin: 0 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 10px;
+            }
         }
 
         /* بخش اصلی */
@@ -96,6 +112,7 @@
             background: #fff;
             border-radius: 12px;
             padding: 20px;
+            direction: rtl;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
         }
@@ -136,12 +153,18 @@
 <body>
 <!-- هدر -->
 <header>
+    <div class="logo">
+        <span>K</span><span>h</span><span>a</span><span>n</span><span>e</span><span>s</span><span>h</span><span>Y</span><span>a</span><span>r</span>
+    </div>
+
     <nav>
-        <a href="#">خانه</a>
-        <a href="#">ورود</a>
-        <a href="#">خروج</a>
+        <a href="http://localhost:8083/">خانه</a>
+        <a href="http://localhost:8083/theNewestTests">جدیدترین آزمون‌ها</a>
+        <a href="http://localhost:8083/register">ساخت حساب </a>
+        <a href="http://localhost:8083/login">ورود</a>
+        <a href="http://localhost:8083/logout">خروج</a>
     </nav>
-    <button class="toggle-btn" onclick="toggleTheme()">تغییر حالت</button>
+
 </header>
 
 <!--  .محتوای اصلی -->
