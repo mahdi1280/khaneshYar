@@ -4,15 +4,18 @@ import ir.iraniancyber.khaneshyar.dto.CompleteSaveDto;
 import ir.iraniancyber.khaneshyar.dto.QuestionDto.QuestionDto;
 import ir.iraniancyber.khaneshyar.dto.QuestionDto.QuestionSaveDto;
 import ir.iraniancyber.khaneshyar.dto.SaveDto;
+import ir.iraniancyber.khaneshyar.dto.optionDto.OptionDto;
 import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.Question;
 import ir.iraniancyber.khaneshyar.service.exam.ExamService;
+import ir.iraniancyber.khaneshyar.service.option.OptionService;
 import ir.iraniancyber.khaneshyar.service.question.QuestionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,10 +24,12 @@ import java.util.stream.Collectors;
 public class QuestionController {
     private final QuestionService questionService;
     private final ExamService examService;
+    private final OptionService optionService;
 
-    public QuestionController(QuestionService questionService, ExamService examService) {
+    public QuestionController(QuestionService questionService, ExamService examService, OptionService optionService) {
         this.questionService = questionService;
         this.examService = examService;
+        this.optionService = optionService;
     }
 
     @PostMapping
@@ -39,7 +44,9 @@ public class QuestionController {
     public ResponseEntity<List<QuestionDto>> findAll() {
         List<Question> questions = questionService.findAll();
         List<QuestionDto> questionDtos = questions.stream()
-                .map(QuestionDto::convertToDto)
+                .map(question-> QuestionDto.convertToDto(question,
+                        optionService.findByQuestionId(question.getId())
+                                .stream().map(OptionDto::convertToDto).collect(Collectors.toList())))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(questionDtos);
     }
@@ -49,14 +56,19 @@ public class QuestionController {
         Exam exam = examService.findById(id);
         List<Question> questions = questionService.findAllByExam(exam);
         List<QuestionDto> questionDtos = questions.stream()
-                .map(QuestionDto::convertToDto)
+                .map(question-> QuestionDto.convertToDto(question,
+                        optionService.findByQuestionId(question.getId())
+                                .stream().map(OptionDto::convertToDto).collect(Collectors.toList())))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(questionDtos);
     }
-    @GetMapping("question/{id}")
+
+    @GetMapping("/question/{id}")
     public ResponseEntity<QuestionDto> findById(@PathVariable int id) {
         Question question = questionService.findById(id);
-        QuestionDto questionDto =QuestionDto.convertToDto(question);
+        List<OptionDto> collect = optionService.findByQuestionId(question.getId())
+                .stream().map(OptionDto::convertToDto).collect(Collectors.toList());
+        QuestionDto questionDto =QuestionDto.convertToDto(question, collect);
 
         return ResponseEntity.ok(questionDto);
     }

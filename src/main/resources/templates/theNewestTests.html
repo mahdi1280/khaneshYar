@@ -255,7 +255,7 @@
                 <div class="exam-title"><span class="exam-icon">📝</span> ${res[i].name}</div>
                 <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: ${res[i].levelTitle} </div>
                 <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ${res[i].creationDate}</div>
-                <div><a href="https://localhost:8083/startExam?${res[i].id}" class="btn btn-primary">شروع آزمون</a></div>
+                <div><a href="http://localhost:8083/startExam?examId=${res[i].id}" class="btn btn-primary">شروع آزمون</a></div>
             </div>
         `;
             tbody.appendChild(row);

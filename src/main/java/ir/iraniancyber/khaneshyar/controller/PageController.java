@@ -73,4 +73,9 @@ public class PageController {
     public String allExam() {
         return "theNewestTests";
     }
+
+    @GetMapping("/startExam")
+    public String startExam() {
+        return "startExam";
+    }
 }
