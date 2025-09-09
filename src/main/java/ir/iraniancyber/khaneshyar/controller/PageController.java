@@ -68,4 +68,9 @@ public class PageController {
     public String accessDen() {
         return "403";
     }
+
+    @GetMapping("/allExam")
+    public String allExam() {
+        return "theNewestTests";
+    }
 }
