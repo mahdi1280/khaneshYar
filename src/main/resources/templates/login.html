@@ -10,18 +10,71 @@
 
     <style>
         body {
-            background-color: #e3f2fd;
+            background: linear-gradient(135deg, #7bdab1, #ceacf1);
             direction: rtl;
         }
+        header {
+            background: linear-gradient(90deg, #9953cd, #613383);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo span:nth-child(odd) {
+            color: #ffcb05;
+            text-decoration: underline;
+            text-decoration-color: #ffcb05;
+        }
+
+        .logo span:nth-child(even) {
+            color: white;
+            text-decoration: underline;
+            text-decoration-color: white;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav a {
+            margin: 0 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 10px;}}
+
 
         .login-card {
-            max-width: 550px;
+            max-width: 400px;
             margin: 100px auto;
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
             background-color: white;
-            height: 500px;
+            height: 400px;
+
         }
 
         .btn-primary {
@@ -44,6 +97,19 @@
     </style>
 </head>
 <body>
+<header>
+    <nav>
+        <a href="http://localhost:8083/">خانه</a>
+        <a href="http://localhost:8083/theNewestTests">جدیدترین آزمون‌ها</a>
+        <a href="http://localhost:8083/register">ساخت حساب </a>
+        <a href="http://localhost:8083/login">ورود</a>
+        <a href="http://localhost:8083/logout">خروج</a>
+    </nav>
+    <div class="logo">
+        <span>K</span><span>h</span><span>a</span><span>n</span><span>e</span><span>s</span><span>h</span><span>Y</span><span>a</span><span>r</span>
+    </div>
+
+</header>
 
 <div class="container">
     <div class="toast-container position-fixed top-0 end-0 p-3">
