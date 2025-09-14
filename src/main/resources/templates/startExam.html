@@ -18,30 +18,60 @@
         }
         header {
             background: linear-gradient(90deg, #9953cd, #613383);
-            padding: 15px 25px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             position: sticky;
             top: 0;
             z-index: 100;
+            direction:ltr;
         }
-        nav a {
-            margin: 0 10px;
-            color: white;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        nav a:hover {
+
+
+        .logo span:nth-child(odd) {
+            color: #ffcb05;
             text-decoration: underline;
+            text-decoration-color: #ffcb05;
         }
-        .logo span:nth-child(odd) { color: #ffcb05; }
-        .logo span:nth-child(even) { color: white; }
+
+        .logo span:nth-child(even) {
+            color: white;
+            text-decoration: underline;
+            text-decoration-color: white;
+        }
+
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
+            letter-spacing: 1px;
         }
+
+        nav a {
+            margin: 0 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 10px;
+            }}
         .question-card {
             background: #fff;
             border-radius: 14px;
@@ -77,19 +107,35 @@
     </style>
 </head>
 <body>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
+         aria-atomic="true">
+        <div class="d-flex align-items-center">
+            <img src="/cat.png"
+                 alt="avatar"
+                 class="rounded-circle me-2"
+                 style="width:30px; height:30px; animation: shake 0.6s ease-in-out 2;">
+            <div class="toast-body" id="toastMessage">خطا رخ داده است</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 
-<!-- Header -->
 <header>
-    <nav>
-        <a href="#">خانه</a>
-        <a href="#">آزمون‌ها</a>
-        <a href="#">پروفایل</a>
-    </nav>
     <div class="logo">
         <span>K</span><span>h</span><span>a</span><span>n</span><span>e</span><span>s</span><span>h</span><span>Y</span><span>a</span><span>r</span>
     </div>
-</header>
 
+    <nav>
+        <a href="http://localhost:8083/">خانه</a>
+        <a href="http://localhost:8083/theNewestTests">جدیدترین آزمون‌ها</a>
+        <a href="http://localhost:8083/register">ساخت حساب </a>
+        <a href="http://localhost:8083/login">ورود</a>
+        <a href="http://localhost:8083/logout">خروج</a>
+    </nav>
+
+</header>
 <!-- Container -->
 <div class="container my-5">
     <h2 class="mb-4 text-primary fw-bold">📝 آزمون چندگزینه‌ای</h2>
@@ -261,18 +307,53 @@
 
     function submitExam() {
         const form = document.getElementById("examForm");
+        let userId=parseInt(localStorage.getItem("userId"));
         const formData = new FormData(form);
         let answers = {};
         for (let [key, value] of formData.entries()) {
-            answers[key] = value;
+            answers.push({
+                questionId: parseInt(key.replace('question-', '')),
+                optionId: parseInt(value)})
         }
+        let payload={
+            examId:parseInt(examId),
+            userId:userId,
+            answers:answers
+        };
         if (Object.keys(answers).length < 5) {
             alert("لطفاً به همه‌ی سوالات پاسخ دهید.");
             return;
         }
         console.log("پاسخ‌های کاربر:", answers);
         alert("✅ پاسخ‌های شما با موفقیت ثبت شد");
-    }
+
+        fetch("http://localhost:8083/exam-submission", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("خطا در ثبت پاسخ‌ها");
+                }
+                return res.json();
+            })
+            .then(data => {
+                showErrorToast("✅ پاسخ‌ها با موفقیت ثبت شدند! (SubmissionId: " + data.id + ")", "success");
+            })
+            .catch(err => {
+                console.error(err);
+                showErrorToast("❌ ارتباط با سرور برقرار نشد", "error");
+            });}
+        function showErrorToast(message) {
+            document.getElementById("toastMessage").textContent = message;
+            const toastElement = document.getElementById("errorToast");
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+
 </script>
 
 </body>
