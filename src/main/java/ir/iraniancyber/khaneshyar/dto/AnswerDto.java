@@ -2,8 +2,8 @@ package ir.iraniancyber.khaneshyar.dto;
 
 public class AnswerDto {
 
-        private final int questionId;
-        private final int optionId;
+    private final int questionId;
+    private final int optionId;
 
     public int getQuestionId() {
         return questionId;
