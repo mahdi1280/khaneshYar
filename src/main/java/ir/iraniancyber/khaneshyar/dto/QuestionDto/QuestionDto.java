@@ -1,8 +1,10 @@
 package ir.iraniancyber.khaneshyar.dto.QuestionDto;
 
+import ir.iraniancyber.khaneshyar.dto.optionDto.OptionDto;
 import ir.iraniancyber.khaneshyar.model.Question;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class QuestionDto {
     private final int id;
@@ -12,8 +14,9 @@ public class QuestionDto {
     private final String examLevel;
     private final LocalDateTime creationDate;
     private final LocalDateTime updatedAt;
+    private final List<OptionDto> optionDtos;
 
-    public QuestionDto(int id, String title, String examName, int examId, String examLevel, LocalDateTime creationDate, LocalDateTime updatedAt) {
+    public QuestionDto(int id, String title, String examName, int examId, String examLevel, LocalDateTime creationDate, LocalDateTime updatedAt, List<OptionDto> optionDtos) {
         this.id = id;
         this.title = title;
         this.examName = examName;
@@ -21,6 +24,7 @@ public class QuestionDto {
         this.examLevel = examLevel;
         this.creationDate = creationDate;
         this.updatedAt = updatedAt;
+        this.optionDtos = optionDtos;
     }
 
     public int getId() {
@@ -50,13 +54,19 @@ public class QuestionDto {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
-    public static QuestionDto convertToDto(Question question) {
+
+    public List<OptionDto> getOptionDtos() {
+        return optionDtos;
+    }
+
+    public static QuestionDto convertToDto(Question question, List<OptionDto> optionDtos) {
         return new QuestionDto(question.getId(),
                 question.getTitle(),
                 question.getExam().getName(),
                 question.getExam().getId(),
                 question.getExam().getLevel().getTitle(),
                 question.getCreatedAt(),
-                question.getUpdatedAt());
+                question.getUpdatedAt(),
+                optionDtos);
     }
 }
