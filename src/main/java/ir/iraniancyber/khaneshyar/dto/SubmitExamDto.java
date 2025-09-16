@@ -9,23 +9,15 @@ import java.util.List;
 
 public class SubmitExamDto {
 
-        @NotNull(message = "submitExamDto.userId.notNull")
-        private final int userId;
-
         @NotNull(message = "submitExamDto.examId.notNull")
         private final int examId;
 
         @NotEmpty(message = "submitExamDto.answers.notEmpty")
         private final List<@Valid AnswerDto> answers;
 
-        public SubmitExamDto(int userId, int examId, List<AnswerDto> answers) {
-            this.userId = userId;
+        public SubmitExamDto(int examId, List<AnswerDto> answers) {
             this.examId = examId;
             this.answers = answers;
-        }
-
-        public int getUserId() {
-            return userId;
         }
 
         public int getExamId() {
