@@ -59,7 +59,7 @@
         .then(res => res.json())
         .then(res => {
             for (let i = 0; i < res.length; i++) {
-                renderTable(res[i]);
+                renderTable(res);
             }
         })
 
@@ -70,7 +70,7 @@
             let row = document.createElement("tr");
             row.setAttribute("data-id", res[i].id);
             row.innerHTML = `
-            <td >${res[i].name}</td>
+            <td >${res[i].examName}</td>
             <td>${res[i].creationDate}</td>
             <td>20</td>
             <td><a class="btn btn-success">نمایش سوالات جواب داده شده</a></td>
