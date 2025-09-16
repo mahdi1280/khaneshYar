@@ -203,25 +203,32 @@
     readQuestion();
 
     function submitExam() {
-        const form = document.getElementById("examForm");
+        let answers = [];
 
-        const formData = new FormData(form);
-        let answers = {};
-        for (let [key, value] of formData.entries()) {
-            answers.push({
-                questionId: parseInt(key.replace('question-', '')),
-                optionId: parseInt(value)})
-        }
-        let payload={
-            examId:parseInt(examId),
-            answers:answers
-        };
-        if (Object.keys(answers).length < 5) {
-            alert("لطفاً به همه‌ی سوالات پاسخ دهید.");
+
+        document.querySelectorAll('[name^="question-"]').forEach(radioGroup => {
+            let questionId = parseInt(radioGroup.name.replace("question-", ""));
+            let selected = document.querySelector(`input[name="question-${questionId}"]:checked`);
+            if (selected) {
+                answers.push({
+                    questionId: questionId,
+                    optionId: parseInt(selected.value)
+                });
+            }
+        });
+        if (answers.length === 0) {
+            showErrorToast("⚠️ لطفاً حداقل به یک سؤال پاسخ دهید");
             return;
         }
-        console.log("پاسخ‌های کاربر:", answers);
-        alert("✅ پاسخ‌های شما با موفقیت ثبت شد");
+
+
+        let payload = {
+            examId: parseInt(examId),
+            answers: answers
+        };
+
+        console.log("📤 ارسال پاسخ‌ها:", payload);
+
 
         fetch("http://localhost:8083/exam-submission", {
             method: "POST",
@@ -237,7 +244,7 @@
                 return res.json();
             })
             .then(data => {
-                showErrorToast("✅ پاسخ‌ها با موفقیت ثبت شدند! (SubmissionId: " + data.id + ")", "success");
+                showErrorToast("✅ پاسخ‌ها با موفقیت ثبت شدند! (ایدیه ثبت شده: " + data.id + ")", "success");
             })
             .catch(err => {
                 console.error(err);
