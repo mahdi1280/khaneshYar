@@ -24,10 +24,8 @@ public class UserExamServiceImpl implements UserExamService {
     }
 
     @Override
-    public List<ExamUserResponseDto> getAll() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = customUserDetailService.findByUsername(authentication.getName());
-        List<UserExam> userExams = userExamRepository.findByUserId(user.getId());
+    public List<ExamUserResponseDto> getAll(int userId) {
+        List<UserExam> userExams = userExamRepository.findByUserId(userId);
         return userExams.stream().map(exam->{
             ExamUserResponseDto userResponseDto = new ExamUserResponseDto();
             userResponseDto.setExamName(exam.getExam().getName());

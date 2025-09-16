@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserExamService {
 
-    List<ExamUserResponseDto> getAll();
+    List<ExamUserResponseDto> getAll(int userId);
 }

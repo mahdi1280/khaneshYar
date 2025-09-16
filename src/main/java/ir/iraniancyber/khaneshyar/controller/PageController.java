@@ -84,4 +84,9 @@ public class PageController {
     public String startExam() {
         return "startExam";
     }
+
+    @GetMapping("/user/exam")
+    public String exam() {
+        return "showExamUser";
+    }
 }

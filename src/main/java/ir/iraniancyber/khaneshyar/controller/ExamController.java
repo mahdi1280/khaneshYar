@@ -82,7 +82,7 @@ public class ExamController {
 
     @GetMapping("/get-exam")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<List<ExamUserResponseDto>> getExam() {
-        return ResponseEntity.ok(userExamService.getAll());
+    public ResponseEntity<List<ExamUserResponseDto>> getExam(@RequestParam int userId) {
+        return ResponseEntity.ok(userExamService.getAll(userId));
     }
 }
