@@ -3,13 +3,16 @@ package ir.iraniancyber.khaneshyar.controller;
 import ir.iraniancyber.khaneshyar.customeExeption.RuleException;
 import ir.iraniancyber.khaneshyar.dto.ExamDto.ExamDto;
 import ir.iraniancyber.khaneshyar.dto.ExamDto.ExamSaveDto;
+import ir.iraniancyber.khaneshyar.dto.ExamUserResponseDto;
 import ir.iraniancyber.khaneshyar.dto.SaveDto;
 import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.Level;
 import ir.iraniancyber.khaneshyar.service.exam.ExamService;
 import ir.iraniancyber.khaneshyar.service.level.LevelService;
+import ir.iraniancyber.khaneshyar.service.userExamService.UserExamService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,10 +25,12 @@ public class ExamController {
 
     private final ExamService examService;
     private final LevelService levelService;
+    private final UserExamService userExamService;
 
-    public ExamController(ExamService examService, LevelService levelService) {
+    public ExamController(ExamService examService, LevelService levelService, UserExamService userExamService) {
         this.examService = examService;
         this.levelService = levelService;
+        this.userExamService = userExamService;
     }
 
     @PostMapping
@@ -73,5 +78,11 @@ public class ExamController {
         examService.update(id, exam);
         return ResponseEntity.ok(new SaveDto(exam.getId()));
 
+    }
+
+    @GetMapping("/get-exam")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<List<ExamUserResponseDto>> getExam() {
+        return ResponseEntity.ok(userExamService.getAll());
     }
 }

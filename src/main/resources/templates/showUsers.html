@@ -1,84 +1,95 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>صفحه نمایش کاربران</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-    .container {
-      margin-top: 50px;
-    }
-    .table-dark-blue {
-      --bs-table-bg: #004085;
-      --bs-table-color: #fff;
-      --bs-table-striped-bg: #003366;
-      --bs-table-hover-bg: #002244;
-      --bs-table-border-color: #0050a0;
-    }
-    .table-dark-blue th,
-    .table-dark-blue td {
-      border-color: var(--bs-table-border-color);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه نمایش کاربران</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .table-dark-blue {
+            --bs-table-bg: #004085;
+            --bs-table-color: #fff;
+            --bs-table-striped-bg: #003366;
+            --bs-table-hover-bg: #002244;
+            --bs-table-border-color: #0050a0;
+        }
+
+        .table-dark-blue th,
+        .table-dark-blue td {
+            border-color: var(--bs-table-border-color);
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-  <h2 class="text-center mb-4">لیست کاربران</h2>
-  <div class="table-responsive">
-    <table class="table table-striped table-hover table-dark-blue">
-      <thead>
-      <tr>
-        <th scope="col">آی دی</th>
-        <th scope="col">نام</th>
-        <th scope="col">نام کاربری</th>
-        <th scope="col">رمز عبور</th>
-        <th scope="col">کد ملی</th>
-        <th scope="col">ملیت</th>
-      </tr>
-      </thead>
-      <tbody id="users">
-      </tbody>
-    </table>
-  </div>
+    <h2 class="text-center mb-4">لیست کاربران</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">آی دی</th>
+                <th scope="col">نام</th>
+                <th scope="col">نام کاربری</th>
+                <th scope="col">کد ملی</th>
+                <th scope="col">ملیت</th>
+                <th scope="col">...</th>
+            </tr>
+            </thead>
+            <tbody id="users">
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  fetch("http://localhost:8083/users")
-          .then(res=>res.json())
-          .then(res=>{
-            console.log(res);
+    fetch("http://localhost:8083/users")
+        .then(res => res.json())
+        .then(res => {
             for (let i = 0; i < res.length; i++) {
-              userList(res[i]);
+                userList(res[i]);
             }
-          })
-  function userList(user){
-    let tr = document.createElement("tr");
-    let id = document.createElement("td");
-    id.innerText = user.id;
-    let name = document.createElement("td");
-    name.innerText = user.name;
-    let username = document.createElement("td");
-    username.innerText = user.username;
-    let password = document.createElement("td");
-    password.innerText = user.password;
-    let nationalCode = document.createElement("td");
-    nationalCode.innerText = user.nationalCode;
-    let nationality = document.createElement("td");
-    nationality.innerText = user.nationality;
-    tr.appendChild(id);
-    tr.appendChild(name);
-    tr.appendChild(username);
-    tr.appendChild(password);
-    tr.appendChild(nationalCode);
-    tr.appendChild(nationality);
-  }
+        })
+
+    function userList(user) {
+        let tr = document.createElement("tr");
+        let id = document.createElement("td");
+        id.innerText = user.id;
+        let name = document.createElement("td");
+        name.innerText = user.name;
+        let username = document.createElement("td");
+        username.innerText = user.username;
+
+        let nationalCode = document.createElement("td");
+        nationalCode.innerText = user.nationalCode;
+        let nationality = document.createElement("td");
+        nationality.innerText = user.nationality;
+
+        let button = document.createElement("a");
+        button.innerText="نمایش امتحانات"
+        button.className="btn btn-success";
+        button.href = "http://localhost:8083/user/exam?userId="+user.id;
+        let tdBtn = document.createElement("td");
+        tdBtn.appendChild(button);
+
+        tr.appendChild(id);
+        tr.appendChild(name);
+        tr.appendChild(username);
+        tr.appendChild(nationalCode);
+        tr.appendChild(nationality);
+        tr.appendChild(tdBtn);
+        document.getElementById("users").appendChild(tr);
+    }
 </script>
 
 </body>

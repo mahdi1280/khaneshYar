@@ -16,6 +16,7 @@
             color: #333;
             line-height: 1.8;
         }
+
         header {
             background: linear-gradient(90deg, #9953cd, #613383);
             padding: 15px 20px;
@@ -26,7 +27,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            direction:ltr;
+            direction: ltr;
         }
 
 
@@ -71,18 +72,22 @@
 
             nav {
                 margin-top: 10px;
-            }}
+            }
+        }
+
         .question-card {
             background: #fff;
             border-radius: 14px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             padding: 25px;
             margin-bottom: 25px;
             transition: transform 0.2s ease;
         }
+
         .question-card:hover {
             transform: translateY(-3px);
         }
+
         .form-check-label {
             cursor: pointer;
             padding: 10px 14px;
@@ -91,12 +96,15 @@
             width: 100%;
             display: block;
         }
+
         .form-check-input {
             margin-left: 10px;
         }
+
         .form-check-label:hover {
             background: #f3f0ff;
         }
+
         footer {
             text-align: center;
             padding: 15px;
@@ -177,7 +185,7 @@
             const cardHtml = `
                 <div class="card shadow-sm mb-4 rounded-3">
                     <div class="card-body">
-                        <h5 class="card-title text-end mb-3">${index + 1}. ${q.title}</h5>
+                        <h5 class="card-title text-end mb-3" name="questionTitle-${q.id}" id="questionTitle-${q.id}">${index + 1}. ${q.title}</h5>
                         ${optionsHtml}
                     </div>
                 </div>
@@ -195,9 +203,9 @@
     }
 
     function readQuestion() {
-        fetch("http://localhost:8083/questions/"+examId)
-            .then(res=>res.json())
-            .then(res=> convertCart(res));
+        fetch("http://localhost:8083/questions/" + examId)
+            .then(res => res.json())
+            .then(res => convertCart(res));
     }
 
     readQuestion();
@@ -206,8 +214,8 @@
         let answers = [];
 
 
-        document.querySelectorAll('[name^="question-"]').forEach(radioGroup => {
-            let questionId = parseInt(radioGroup.name.replace("question-", ""));
+        document.querySelectorAll('[name^="questionTitle-"]').forEach(radioGroup => {
+            let questionId = parseInt(radioGroup.id.replace("questionTitle-", ""));
             let selected = document.querySelector(`input[name="question-${questionId}"]:checked`);
             if (selected) {
                 answers.push({
@@ -227,8 +235,6 @@
             answers: answers
         };
 
-        console.log("📤 ارسال پاسخ‌ها:", payload);
-
 
         fetch("http://localhost:8083/exam-submission", {
             method: "POST",
@@ -245,17 +251,21 @@
             })
             .then(data => {
                 showErrorToast("✅ پاسخ‌ها با موفقیت ثبت شدند! (ایدیه ثبت شده: " + data.id + ")", "success");
+                window.location.href = "http://localhost:8083/theNewestTests";
+
             })
             .catch(err => {
-                console.error(err);
                 showErrorToast("❌ ارتباط با سرور برقرار نشد", "error");
-            });}
-        function showErrorToast(message) {
-            document.getElementById("toastMessage").textContent = message;
-            const toastElement = document.getElementById("errorToast");
-            const toast = new bootstrap.Toast(toastElement);
-            toast.show();
-        }
+            });
+    }
+
+
+    function showErrorToast(message) {
+        document.getElementById("toastMessage").textContent = message;
+        const toastElement = document.getElementById("errorToast");
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
 
 </script>
 

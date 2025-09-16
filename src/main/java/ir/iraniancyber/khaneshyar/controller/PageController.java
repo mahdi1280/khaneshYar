@@ -75,6 +75,7 @@ public class PageController {
     }
 
     @GetMapping("/showUsers")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String showUsers() {
         return "showUsers";
     }

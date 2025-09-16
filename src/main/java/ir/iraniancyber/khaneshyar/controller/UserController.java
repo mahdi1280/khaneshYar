@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
@@ -61,8 +63,9 @@ public class UserController {
         }
     }
 
-    @GetMapping("/")
-    public void findAllUsers() {
-        customUserDetailService.findAll();
+    @GetMapping
+    public ResponseEntity<List<User>> findAllUsers() {
+        List<User> all = customUserDetailService.findAll();
+        return ResponseEntity.ok(all);
     }
 }
