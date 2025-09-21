@@ -6,6 +6,7 @@ public class ExamUserResponseDto {
 
     private String examName;
     private LocalDateTime creationDate;
+    private float score;
 
     public String getExamName() {
         return examName;
@@ -21,5 +22,13 @@ public class ExamUserResponseDto {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
     }
 }
