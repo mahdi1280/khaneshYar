@@ -7,11 +7,16 @@ import ir.iraniancyber.khaneshyar.dto.SaveDto;
 import ir.iraniancyber.khaneshyar.dto.optionDto.OptionDto;
 import ir.iraniancyber.khaneshyar.model.Exam;
 import ir.iraniancyber.khaneshyar.model.Question;
+import ir.iraniancyber.khaneshyar.model.UserExam;
+import ir.iraniancyber.khaneshyar.model.UserExamHint;
+import ir.iraniancyber.khaneshyar.repository.UserExamHintRepository;
 import ir.iraniancyber.khaneshyar.service.exam.ExamService;
 import ir.iraniancyber.khaneshyar.service.option.OptionService;
 import ir.iraniancyber.khaneshyar.service.question.QuestionService;
+import ir.iraniancyber.khaneshyar.service.userExamService.UserExamService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,11 +30,15 @@ public class QuestionController {
     private final QuestionService questionService;
     private final ExamService examService;
     private final OptionService optionService;
+    private final UserExamService userExamService;
+    private final UserExamHintRepository userExamHintRepository;
 
-    public QuestionController(QuestionService questionService, ExamService examService, OptionService optionService) {
+    public QuestionController(QuestionService questionService, ExamService examService, OptionService optionService, UserExamService userExamService, UserExamHintRepository userExamHintRepository) {
         this.questionService = questionService;
         this.examService = examService;
         this.optionService = optionService;
+        this.userExamService = userExamService;
+        this.userExamHintRepository = userExamHintRepository;
     }
 
     @PostMapping
@@ -59,6 +68,29 @@ public class QuestionController {
                 .map(question-> QuestionDto.convertToDto(question,
                         optionService.findByQuestionId(question.getId())
                                 .stream().map(OptionDto::convertToDto).collect(Collectors.toList())))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(questionDtos);
+    }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @GetMapping("/admin/{userExamId}")
+    public ResponseEntity<List<QuestionDto>> findAllByUserExamId(@PathVariable int userExamId) {
+        UserExam userExam = userExamService.findById(userExamId);
+        List<UserExamHint> userExamHints = userExamHintRepository.findByUserExamId(userExam.getId());
+
+
+        List<QuestionDto> questionDtos = userExamHints.stream()
+                .map(userExamHint-> {
+                    QuestionDto questionDto = QuestionDto.convertToDto(userExamHint.getQuestion(),
+                            optionService.findByQuestionId(userExamHint.getQuestion().getId())
+                                    .stream().map(OptionDto::convertToDto).collect(Collectors.toList()));
+                    questionDto.getOptionDtos().forEach(option-> {
+                        if(option.getId() == userExamHint.getOption().getId()){
+                            option.setAnswered(true);
+                        }
+                    });
+                    return questionDto;
+                })
                 .collect(Collectors.toList());
         return ResponseEntity.ok(questionDtos);
     }

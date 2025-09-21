@@ -73,7 +73,7 @@
             <td >${res[i].examName}</td>
             <td>${res[i].creationDate}</td>
             <td>${res[i].score}</td>
-            <td><a class="btn btn-success">نمایش سوالات جواب داده شده</a></td>
+            <td><a href="http://localhost:8083/showAnswerer?examId=${res[i].examId}" class="btn btn-success">نمایش سوالات جواب داده شده</a></td>
             `;
             tbody.appendChild(row);
         }

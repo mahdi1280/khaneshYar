@@ -4,9 +4,18 @@ import java.time.LocalDateTime;
 
 public class ExamUserResponseDto {
 
+    private int examId;
     private String examName;
     private LocalDateTime creationDate;
     private float score;
+
+    public int getExamId() {
+        return examId;
+    }
+
+    public void setExamId(int examId) {
+        this.examId = examId;
+    }
 
     public String getExamName() {
         return examName;

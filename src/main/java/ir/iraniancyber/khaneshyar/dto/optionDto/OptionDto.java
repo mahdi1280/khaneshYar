@@ -14,6 +14,7 @@ public class OptionDto {
     private final boolean correct;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
+    private boolean answered;
 
     public int getId() {
         return id;
@@ -51,7 +52,16 @@ public class OptionDto {
         return updatedAt;
     }
 
-    public OptionDto(int id, String title, int examId, String examTitle, int questionId, String questionTitle, boolean correct, LocalDateTime createdAt, LocalDateTime updqtedAt) {
+
+    public boolean isAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
+    }
+
+    public OptionDto(int id, String title, int examId, String examTitle, int questionId, String questionTitle, boolean correct, LocalDateTime createdAt, LocalDateTime updqtedAt, boolean answered) {
         this.id = id;
         this.title = title;
         this.examId = examId;
@@ -61,10 +71,12 @@ public class OptionDto {
         this.correct = correct;
         this.createdAt = createdAt;
         this.updatedAt = updqtedAt;
+        this.answered = answered;
     }
+
     public static OptionDto convertToDto(Option option) {
         return new OptionDto(
-               option.getId(),
+                option.getId(),
                 option.getTitle(),
                 option.getQuestion().getExam().getId(),
                 option.getQuestion().getExam().getName(),
@@ -72,6 +84,7 @@ public class OptionDto {
                 option.getQuestion().getTitle(),
                 option.isCorrect(),
                 option.getCreatedAt(),
-                option.getUpdatedAt());
+                option.getUpdatedAt(),
+                false);
     }
 }

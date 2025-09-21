@@ -89,4 +89,10 @@ public class PageController {
     public String exam() {
         return "showExamUser";
     }
+
+    @GetMapping("/showAnswerer")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public String showAnswerer() {
+        return "showAnswers";
+    }
 }
