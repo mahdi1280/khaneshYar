@@ -282,7 +282,7 @@
             var row = document.createElement("tr");
             row.innerHTML = `
                     <td title="${res[i].title}">${res[i].title}</td>
-                    <td title="${res[i].creationDate}">${res[i].creationDate}</td>
+                    <td title="${res[i].creationDate}">${new Date(res[i].creationDate).toLocaleDateString('fa-IR')}</td>
                     <td><button onclick='deleteQuestion(${res[i].id})' class='b-d'>Delete</button></td>
                     <td><a href="http://localhost:8083/updateQuestion?id=${res[i].id}" class='b-u btn btn-primary'>Update</a></td>
 

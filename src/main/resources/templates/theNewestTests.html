@@ -106,6 +106,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
+            direction: rtl;
+            margin-top: 12px ;
         }
 
         .exam-card {
@@ -176,66 +178,7 @@
 <main>
     <h1>جدیدترین آزمون‌ها</h1>
     <div class="exam-grid" id="allCart">
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون ریاضی</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: سخت</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۶/۱۰</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون فیزیک</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۶/۰۵</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون شیمی</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: آسان</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۶/۰۲</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون زیست</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۲۸</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون تاریخ</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: آسان</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۲۵</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون جغرافیا</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۲۳</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون ادبیات</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: سخت</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۲۰</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون فلسفه</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: سخت</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۱۸</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون جامعه‌شناسی</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۱۵</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون اقتصاد</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: آسان</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۱۲</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون هنر</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: متوسط</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۱۰</div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-title"><span class="exam-icon">📝</span> آزمون رایانه</div>
-            <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: سخت</div>
-            <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ۱۴۰۴/۰۵/۰۸</div>
-        </div>
+
     </div>
 </main>
 
@@ -254,7 +197,7 @@
             <div class="exam-card">
                 <div class="exam-title"><span class="exam-icon">📝</span> ${res[i].name}</div>
                 <div class="exam-info"><span class="exam-icon">⭐️</span> سختی: ${res[i].levelTitle} </div>
-                <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ${res[i].creationDate}</div>
+                <div class="exam-info"><span class="exam-icon">⏰</span> زمان ایجاد: ${new Date(res[i].creationDate).toLocaleDateString('fa-IR')}</div>
                 <div><a href="http://localhost:8083/startExam?examId=${res[i].id}" class="btn btn-primary">شروع آزمون</a></div>
             </div>
         `;
