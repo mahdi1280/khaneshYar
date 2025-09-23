@@ -34,6 +34,7 @@ public class UserExamServiceImpl implements UserExamService {
         return userExams.stream().map(exam->{
             ExamUserResponseDto userResponseDto = new ExamUserResponseDto();
             userResponseDto.setExamId(exam.getExam().getId());
+            userResponseDto.setUserExamId(exam.getId());
             userResponseDto.setExamName(exam.getExam().getName());
             userResponseDto.setCreationDate(exam.getCreatedAt());
             List<UserExamHint> userExamHints = userExamHintRepository.findByUserExamId(exam.getId());

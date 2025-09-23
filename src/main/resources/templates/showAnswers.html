@@ -113,10 +113,12 @@
             margin-top: 40px;
         }
         .checked-true{
-            background-color: yellow;
+            background-color: #ff4100;
+            border-radius: 12px;
         }
         .checkedc-true{
             background-color: green;
+            border-radius: 12px;
         }
     </style>
 </head>
@@ -169,6 +171,7 @@
 <script>
     let params = new URLSearchParams(window.location.search);
     let examId = params.get("examId");
+    let userExamId = params.get("userExamId");
 
     function convertCart(questions) {
         const container = document.getElementById("question-container");
@@ -177,8 +180,8 @@
         questions.forEach((q, index) => {
             // ساختن گزینه‌ها
             let optionsHtml = q.optionDtos.map(opt => `
-                <div class="form-check my-2">
-                    <input disabled class="form-check-input checked-${opt.answered} checkedc-${opt.correct}" type="radio"
+                <div class="form-check my-2 checked-${opt.answered} checkedc-${opt.correct}">
+                    <input disabled class="form-check-input" type="radio"
                            name="question-${q.id}" id="option-${opt.id}" value="${opt.id}" ">
                     <label class="form-check-label w-100 text-end pe-2"
                            for="option-${opt.id}" style="cursor:pointer;">
@@ -201,7 +204,7 @@
     }
 
     function readQuestion() {
-        fetch("http://localhost:8083/questions/" + examId)
+        fetch("http://localhost:8083/questions/admin/" + userExamId)
             .then(res => res.json())
             .then(res => convertCart(res));
     }

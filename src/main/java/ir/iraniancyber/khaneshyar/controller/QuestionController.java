@@ -77,8 +77,6 @@ public class QuestionController {
     public ResponseEntity<List<QuestionDto>> findAllByUserExamId(@PathVariable int userExamId) {
         UserExam userExam = userExamService.findById(userExamId);
         List<UserExamHint> userExamHints = userExamHintRepository.findByUserExamId(userExam.getId());
-
-
         List<QuestionDto> questionDtos = userExamHints.stream()
                 .map(userExamHint-> {
                     QuestionDto questionDto = QuestionDto.convertToDto(userExamHint.getQuestion(),

@@ -8,6 +8,7 @@ public class ExamUserResponseDto {
     private String examName;
     private LocalDateTime creationDate;
     private float score;
+    private int userExamId;
 
     public int getExamId() {
         return examId;
@@ -39,5 +40,13 @@ public class ExamUserResponseDto {
 
     public void setScore(float score) {
         this.score = score;
+    }
+
+    public int getUserExamId() {
+        return userExamId;
+    }
+
+    public void setUserExamId(int userExamId) {
+        this.userExamId = userExamId;
     }
 }
