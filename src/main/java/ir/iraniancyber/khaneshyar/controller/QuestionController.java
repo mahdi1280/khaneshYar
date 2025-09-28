@@ -1,5 +1,8 @@
 package ir.iraniancyber.khaneshyar.controller;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import ir.iraniancyber.khaneshyar.dto.CompleteSaveDto;
 import ir.iraniancyber.khaneshyar.dto.QuestionDto.QuestionDto;
 import ir.iraniancyber.khaneshyar.dto.QuestionDto.QuestionSaveDto;
@@ -26,6 +29,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/questions")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
+@Tag(name = "Question API", description = "this class for work with question")
 public class QuestionController {
     private final QuestionService questionService;
     private final ExamService examService;
@@ -42,6 +46,10 @@ public class QuestionController {
     }
 
     @PostMapping
+    @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "means save is Ok"),
+          @ApiResponse(responseCode = "409", description = "not valida data")
+    })
     public ResponseEntity<SaveDto> save(@Valid @RequestBody QuestionSaveDto questionSaveDto) {
         Exam exam = examService.findById(questionSaveDto.getExamId());
         Question question = questionSaveDto.convertToQuestion(exam);
